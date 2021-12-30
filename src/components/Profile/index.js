@@ -10,7 +10,7 @@ const Profile = () => {
     .then(({ data }) => {
       setUser(data)
     })
-  })
+  }, [])
 
   if (!user) {
     return <></>
@@ -19,7 +19,7 @@ const Profile = () => {
   const { name, balance } = user
 
   return (
-    <Box borderWidth='1px' borderRadius='lg'>
+    <Box borderWidth='1px' borderRadius='lg' marginTop="2" padding="2">
       <Heading>Profile</Heading>
       <Stat>
         <StatLabel>{name}</StatLabel>

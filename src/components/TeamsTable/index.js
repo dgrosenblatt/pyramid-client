@@ -17,13 +17,14 @@ const TeamsList = () => {
   useEffect(fetchTeams, [])
 
   return (
-    <Box borderWidth='1px' borderRadius='lg'>
+    <Box borderWidth='1px' borderRadius='lg' padding="2">
       <Heading>Teams</Heading>
       <Table variant='striped' colorScheme='teal'>
         <Thead>
         <Tr>
           <Th>Team</Th>
           <Th>Trading Status</Th>
+          <Th>Price</Th>
           <Th>Wins</Th>
           <Th>Losses</Th>
           <Th>Ties</Th>
