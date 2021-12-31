@@ -30,6 +30,8 @@ const BuyForm = ({ user, teams, fetchUser }) => {
   const toast = useToast()
 
   const onClickBuy = () => {
+    if (selectedTeam.is_locked) return
+
     axios
       .post('http://localhost:3000/holdings', { quantity, team_id: teamOption })
       .then(({ data }) => {
@@ -62,6 +64,12 @@ const BuyForm = ({ user, teams, fetchUser }) => {
   const { balance } = user
   const maxShares = Math.floor(balance / selectedTeam.price)
 
+  const buttonText = selectedTeam.is_locked
+    ? `${selectedTeam.name} is currently locked`
+    : `Buy ${quantity} ${shareText} of ${selectedTeam.name} for ${dollars(quantity * selectedTeam.price)}`
+
+  const buttonColor = selectedTeam.is_locked ? 'gray' : 'green'
+
   return (
     <Box borderWidth='1px' borderRadius='lg' marginTop="2" padding="2">
       <Heading>Buy</Heading>
@@ -91,8 +99,8 @@ const BuyForm = ({ user, teams, fetchUser }) => {
               <SliderThumb />
             </Slider>
           </Box>
-          <Button colorScheme="green" onClick={onClickBuy}>
-            Buy {quantity} {shareText} of {selectedTeam.name} for {dollars(quantity * selectedTeam.price)}
+          <Button colorScheme={buttonColor} onClick={onClickBuy}>
+            {buttonText}
           </Button>
         </Box>
       </form>
