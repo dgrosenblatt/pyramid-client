@@ -33,10 +33,9 @@ const BuyForm = ({ user, teams, fetchUser }) => {
     axios
       .post('http://localhost:3000/holdings', { quantity, team_id: teamOption })
       .then(({ data }) => {
-        const { quantity, team } = data
+        const { team } = data
         const { price, name } = team
 
-        resetForm()
         fetchUser()
         toast({
           title: `Success`,
@@ -45,6 +44,7 @@ const BuyForm = ({ user, teams, fetchUser }) => {
           duration: 9000,
           isClosable: true,
         })
+        resetForm()
       })
       .catch(({ response }) => {
         const { error } = response.data
