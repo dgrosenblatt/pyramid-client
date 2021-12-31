@@ -32,21 +32,25 @@ const BuyForm = ({ user, teams, fetchUser }) => {
   const onClickBuy = () => {
     axios
       .post('http://localhost:3000/holdings', { quantity, team_id: teamOption })
-      .then(() => {
+      .then(({ data }) => {
+        const { quantity, team } = data
+        const { price, name } = team
+
         resetForm()
         fetchUser()
         toast({
-          title: 'Purchase successful',
-          description: 'Purchase successful',
+          title: `Success`,
+          description: `Purchased ${quantity} ${name} @ ${dollars(price)}, Total: ${dollars(quantity * price)}`,
           status: 'success',
           duration: 9000,
           isClosable: true,
         })
       })
-      .catch(error => {
+      .catch(({ response }) => {
+        const { error } = response.data
         toast({
           title: 'Purchase failed',
-          description: 'Purchase failed',
+          description: error,
           status: 'error',
           duration: 9000,
           isClosable: true,
