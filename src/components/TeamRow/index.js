@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Button, ButtonGroup, Tr, Td } from '@chakra-ui/react'
 import axios from 'axios'
+import { dollars } from '../../utils'
 
 const TeamRow = ({ fetchTeams, team }) => {
   const { id, is_locked: isLocked, name, price, wins, losses, ties } = team
@@ -72,7 +73,7 @@ const TeamRow = ({ fetchTeams, team }) => {
     <Tr>
       <Td>{name}</Td>
       <Td>{tradingStatus}</Td>
-      <Td>${price}</Td>
+      <Td>{dollars(price)}</Td>
       <Td>{wins}</Td>
       <Td>{losses}</Td>
       <Td>{ties}</Td>
