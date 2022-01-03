@@ -5,6 +5,7 @@ import axios from 'axios'
 import TeamsTable from './components/TeamsTable';
 import Profile from './components/Profile'
 import BuyForm from './components/BuyForm'
+import SellForm from './components/SellForm'
 import './App.css';
 
 function App() {
@@ -37,6 +38,7 @@ function App() {
       <main>
         <Profile user={user}/>
         <BuyForm user={user} teams={teams} fetchUser={fetchUser} />
+        <SellForm user={user} holdings={user.holdings} fetchUser={fetchUser} />
         <TeamsTable teams={teams} fetchTeams={fetchTeams} />
       </main>
     </ChakraProvider>
