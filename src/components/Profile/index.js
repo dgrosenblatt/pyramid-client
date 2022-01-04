@@ -1,4 +1,4 @@
-import { Box, Heading, Stat, StatGroup, StatLabel, StatNumber, Text, Table, Td,
+import { Box, Heading, Stat, StatGroup, StatLabel, StatNumber, Table, Td,
   Thead, Tbody, Tr, Th, TableCaption } from '@chakra-ui/react'
 import { dollars } from '../../utils'
 

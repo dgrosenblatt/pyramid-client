@@ -6,6 +6,7 @@ import TeamsTable from './components/TeamsTable';
 import Profile from './components/Profile'
 import BuyForm from './components/BuyForm'
 import SellForm from './components/SellForm'
+import Standings from './components/Standings'
 import './App.css';
 
 function App() {
@@ -36,6 +37,7 @@ function App() {
   return (
     <ChakraProvider>
       <main>
+        <Standings />
         <Profile user={user}/>
         <BuyForm user={user} teams={teams} fetchUser={fetchUser} />
         <SellForm user={user} holdings={user.holdings} fetchUser={fetchUser} />
