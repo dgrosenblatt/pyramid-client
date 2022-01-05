@@ -14,14 +14,14 @@ const Standings = () => {
   }, [])
 
   return (
-    <Box borderWidth='1px' borderRadius='lg' marginTop="2" padding="2">
+    <Box bgColor="white" borderWidth='1px' borderRadius='lg' marginBottom="1rem" padding="2">
       <Heading size="md">Season 1 Standings</Heading>
       <Heading size="sm">Division S</Heading>
-      <Table colorScheme='gray' size="sm">
+      <Table size="sm">
         <Thead>
         <Tr>
-          <Th>Rank</Th>
-          <Th>$</Th>
+          <Th></Th>
+          <Th>Total</Th>
           <Th>Name</Th>
         </Tr>
         </Thead>
@@ -29,7 +29,7 @@ const Standings = () => {
           {standings.map((user, index) => (
             <Tr key={user.id}>
               <Td>{index+1}</Td>
-              <Td>{dollars(user.balance)}</Td>
+              <Td>{dollars(user.balance)} +h</Td>
               <Td>{user.name}</Td>
             </Tr>
           ))}

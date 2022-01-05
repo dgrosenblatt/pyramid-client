@@ -1,19 +1,18 @@
-import { Box, Heading, Table, Thead, Tbody, Tr, Th } from '@chakra-ui/react'
+import { Box, Table, Thead, Tbody, Tr, Th } from '@chakra-ui/react'
 import TeamRow from '../TeamRow'
 
 const TeamsList = ({ teams, fetchTeams }) => {
   return (
-    <Box borderWidth='1px' borderRadius='lg' padding="2">
-      <Heading>Teams</Heading>
-      <Table variant='striped' colorScheme='gray'>
+    <Box bgColor="white" borderWidth='1px' borderRadius='lg' padding="2">
+      <Table variant='striped' colorScheme='green'>
         <Thead>
         <Tr>
-          <Th>Team</Th>
+          <Th></Th>
           <Th>Trading Status</Th>
           <Th>Price</Th>
-          <Th>Wins</Th>
-          <Th>Losses</Th>
-          <Th>Ties</Th>
+          <Th>W</Th>
+          <Th>L</Th>
+          <Th>T</Th>
           <Th>Actions</Th>
         </Tr>
         </Thead>
