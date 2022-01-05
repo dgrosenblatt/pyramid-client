@@ -1,7 +1,7 @@
 import { Box, Table, Thead, Tbody, Tr, Th } from '@chakra-ui/react'
 import TeamRow from '../TeamRow'
 
-const TeamsTable = ({ teams, fetchTeams }) => {
+const AdminTeamsTable = ({ teams, fetchTeams }) => {
   return (
     <Box bgColor="white" borderWidth='1px' borderRadius='lg' padding="2">
       <Table variant='striped' colorScheme='green'>
@@ -13,14 +13,15 @@ const TeamsTable = ({ teams, fetchTeams }) => {
           <Th>W</Th>
           <Th>L</Th>
           <Th>T</Th>
+          <Th>Actions</Th>
         </Tr>
         </Thead>
         <Tbody>
-          {teams.map(team => <TeamRow key={team.id} team={team} fetchTeams={fetchTeams} isAdmin={false} />)}
+          {teams.map(team => <TeamRow key={team.id} team={team} fetchTeams={fetchTeams} isAdmin={true}/>)}
         </Tbody>
       </Table>
     </Box>
   )
 }
 
-export default TeamsTable;
+export default AdminTeamsTable;

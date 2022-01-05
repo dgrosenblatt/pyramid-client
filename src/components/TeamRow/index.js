@@ -3,7 +3,7 @@ import { Button, ButtonGroup, Tr, Td } from '@chakra-ui/react'
 import axios from 'axios'
 import { dollars } from '../../utils'
 
-const TeamRow = ({ fetchTeams, team }) => {
+const TeamRow = ({ fetchTeams, team, isAdmin }) => {
   const { id, is_locked: isLocked, name, price, wins, losses, ties } = team
 
   const [isLockLoading, setIsLockLoading] = useState(false)
@@ -77,46 +77,48 @@ const TeamRow = ({ fetchTeams, team }) => {
       <Td>{wins}</Td>
       <Td>{losses}</Td>
       <Td>{ties}</Td>
-      <Td>
-        <ButtonGroup size='sm' isAttached variant='outline'>
-          {isLocked ?
+      {isAdmin && (
+        <Td>
+          <ButtonGroup size='sm' isAttached variant='outline'>
+            {isLocked ?
+              <Button
+                colorScheme="red"
+                variant="solid"
+                isLoading={isUnlockLoading}
+                onClick={unlockTeam}
+              >
+                Unlock
+              </Button>
+                :
+              <Button colorScheme="red" isLoading={isLockLoading} variant="solid" onClick={lockTeam}>Lock</Button>
+            }
             <Button
-              colorScheme="red"
+              colorScheme="blue"
               variant="solid"
-              isLoading={isUnlockLoading}
-              onClick={unlockTeam}
+              isLoading={isAddWinLoading}
+              onClick={addWin}
             >
-              Unlock
+              +Win
             </Button>
-              :
-            <Button colorScheme="red" isLoading={isLockLoading} variant="solid" onClick={lockTeam}>Lock</Button>
-          }
-          <Button
-            colorScheme="blue"
-            variant="solid"
-            isLoading={isAddWinLoading}
-            onClick={addWin}
-          >
-            +Win
-          </Button>
-          <Button
-            colorScheme="blue"
-            variant="solid"
-            isLoading={isAddLossLoading}
-            onClick={addLoss}
-          >
-            +Loss
-          </Button>
-          <Button
-            colorScheme="blue"
-            variant="solid"
-            isLoading={isAddTieLoading}
-            onClick={addTie}
-          >
-            +Tie
-          </Button>
-        </ButtonGroup>
-      </Td>
+            <Button
+              colorScheme="blue"
+              variant="solid"
+              isLoading={isAddLossLoading}
+              onClick={addLoss}
+            >
+              +Loss
+            </Button>
+            <Button
+              colorScheme="blue"
+              variant="solid"
+              isLoading={isAddTieLoading}
+              onClick={addTie}
+            >
+              +Tie
+            </Button>
+          </ButtonGroup>
+        </Td>
+      )}
     </Tr>
   )
 }

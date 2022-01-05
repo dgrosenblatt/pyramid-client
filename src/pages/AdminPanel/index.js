@@ -1,9 +1,9 @@
-import TeamsTable from '../../components/TeamsTable'
+import AdminTeamsTable from '../../components/AdminTeamsTable'
 
 const AdminPanel = ({ teams, fetchTeams }) => {
   return (
     <>
-      <TeamsTable teams={teams} fetchTeams={fetchTeams} />
+      <AdminTeamsTable teams={teams} fetchTeams={fetchTeams} />
     </>
   )
 }
