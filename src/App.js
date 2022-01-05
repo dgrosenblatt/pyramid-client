@@ -44,7 +44,7 @@ function App() {
             <Box w='200px' h="100%" padding="24px">
               <Nav />
             </Box>
-            <Box padding="1rem" bgColor="gray.50">
+            <Box w="calc(100% - 200px)" h="100%" padding="1rem" bgColor="gray.50">
               <Routes>
                 <Route path="/admin" element={<AdminPanel teams={teams} fetchTeams={fetchTeams} />} />
                 <Route path="/buy" element={<BuyForm user={user} teams={teams} fetchUser={fetchUser} />} />
