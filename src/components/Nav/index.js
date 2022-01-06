@@ -4,7 +4,7 @@ import { FaCashRegister, FaHome } from 'react-icons/fa'
 import { GiReceiveMoney } from 'react-icons/gi'
 import { LinkBody, LinkBodyText, NavHeading, NavButton } from './styles'
 
-const Nav = ({ onBuyOpen }) => (
+const Nav = ({ onBuyOpen, onSellOpen }) => (
   <nav>
     <NavHeading size="md">💸 Pyramid</NavHeading>
     <Link to="/">
@@ -17,11 +17,11 @@ const Nav = ({ onBuyOpen }) => (
         <FaCashRegister /><LinkBodyText>Buy</LinkBodyText>
       </LinkBody>
     </NavButton>
-    <Link to="/sell">
+    <NavButton onClick={onSellOpen}>
       <LinkBody>
         <GiReceiveMoney /><LinkBodyText>Sell</LinkBodyText>
       </LinkBody>
-    </Link>
+    </NavButton>
     <Link to="/admin">
       <LinkBody>
         <BsFillGearFill /><LinkBodyText>Admin</LinkBodyText>

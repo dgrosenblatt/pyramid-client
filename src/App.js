@@ -34,6 +34,7 @@ function App() {
   useEffect(fetchUser, [])
 
   const { isOpen: isBuyOpen, onOpen: onBuyOpen, onClose: onBuyClose } = useDisclosure()
+  const { isOpen: isSellOpen, onOpen: onSellOpen, onClose: onSellClose } = useDisclosure()
 
   if (!teams || !user) {
     return <></>
@@ -45,12 +46,11 @@ function App() {
         <main>
           <Flex h="100%">
             <Box w='200px' h="100%" padding="24px">
-              <Nav onBuyOpen={onBuyOpen} />
+              <Nav onBuyOpen={onBuyOpen} onSellOpen={onSellOpen}/>
             </Box>
             <Box w="calc(100% - 200px)" h="100%" padding="1rem" bgColor="gray.50">
               <Routes>
                 <Route path="/admin" element={<AdminPanel teams={teams} fetchTeams={fetchTeams} />} />
-                <Route path="/sell" element={<SellForm user={user} holdings={user.holdings} fetchUser={fetchUser} />} />
                 <Route path="/" element={<Dashboard user={user} fetchTeams={fetchTeams} teams={teams}/>} />
               </Routes>
             </Box>
@@ -69,6 +69,22 @@ function App() {
           <DrawerHeader>Buy Shares</DrawerHeader>
           <DrawerBody>
             <BuyForm user={user} teams={teams} fetchUser={fetchUser} onBuyClose={onBuyClose}/>
+          </DrawerBody>
+        </DrawerContent>
+      </Drawer>
+
+      <Drawer
+        isOpen={isSellOpen}
+        placement='right'
+        onClose={onSellClose}
+        blockScrollOnMount={false}
+      >
+        <DrawerOverlay />
+        <DrawerContent>
+          <DrawerCloseButton />
+          <DrawerHeader>Sell Shares</DrawerHeader>
+          <DrawerBody>
+            <SellForm user={user} holdings={user.holdings} fetchUser={fetchUser} onSellClose={onSellClose}/>
           </DrawerBody>
         </DrawerContent>
       </Drawer>

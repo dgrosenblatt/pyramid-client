@@ -1,10 +1,11 @@
 import { useMemo, useState } from 'react'
-import { Box, Button, Heading, Slider, SliderMark, Select, SliderTrack,
+import { Box, Text, Heading, Slider, SliderMark, Select, SliderTrack,
   SliderFilledTrack, SliderThumb, useToast } from '@chakra-ui/react'
 import axios from 'axios'
+import { FormButton } from './styles'
 import { dollars } from '../../utils'
 
-const SellForm = ({ user, holdings, fetchUser }) => {
+const SellForm = ({ onSellClose, holdings, fetchUser }) => {
   const [quantity, setQuantity] = useState(1)
 
   const holdingsById = useMemo(() => {
@@ -22,11 +23,6 @@ const SellForm = ({ user, holdings, fetchUser }) => {
   }
   const selectedHolding = holdingsById[holdingOption]
 
-  const resetForm = () => {
-    setQuantity(1)
-    setHoldingOption(holdings[0].id)
-  }
-
   const toast = useToast()
 
   if (!holdings.length) {
@@ -35,7 +31,7 @@ const SellForm = ({ user, holdings, fetchUser }) => {
 
   const onClickSell = () => {
     if (selectedHolding.team.is_locked) return
-// need holding id? or just go through team
+
     axios
       .delete(`http://localhost:3000/holdings/${selectedHolding.id}?quantity=${quantity}`)
       .then(({ data }) => {
@@ -51,7 +47,7 @@ const SellForm = ({ user, holdings, fetchUser }) => {
           duration: 9000,
           isClosable: true,
         })
-        resetForm()
+        onSellClose()
       })
       .catch(({ response }) => {
         const { error } = response.data
@@ -75,7 +71,7 @@ const SellForm = ({ user, holdings, fetchUser }) => {
       ? `${selectedHolding.team.name} is currently locked`
       : `Sell ${quantity} ${shareText} of ${selectedHolding.team.name} for ${dollars(quantity * selectedHolding.team.price)}`
 
-    buttonColor = selectedHolding.is_locked ? 'gray' : 'green'
+    buttonColor = selectedHolding.team.is_locked ? 'gray' : 'red'
   } else {
     buttonText = 'Sell'
     buttonColor = 'gray'
@@ -84,7 +80,6 @@ const SellForm = ({ user, holdings, fetchUser }) => {
 
   return (
     <Box borderWidth='1px' borderRadius='lg' marginTop="2" padding="2">
-      <Heading>Sell</Heading>
       <form onSubmit={(e) => {e.preventDefault()}}>
         <Box>
           <Select value={holdingOption} onChange={onTeamOptionChange}>
@@ -92,6 +87,7 @@ const SellForm = ({ user, holdings, fetchUser }) => {
               <option key={holding.id} value={holding.id}>{holding.team.name}</option>
             ))}
           </Select>
+          <Text position="relative" top="16px" textAlign="center">Current price: {dollars(selectedHolding.team.price)}</Text>
           <Box borderWidth='1px' borderRadius='lg' marginTop="8" marginBottom="8" padding="8">
             <Slider value={quantity} defaultValue={1} onChange={(val) => setQuantity(val)} min={1} max={maxShares}>
               <SliderMark
@@ -111,9 +107,9 @@ const SellForm = ({ user, holdings, fetchUser }) => {
               <SliderThumb />
             </Slider>
           </Box>
-          <Button colorScheme={buttonColor} onClick={onClickSell}>
+          <FormButton colorScheme={buttonColor} onClick={onClickSell}>
             {buttonText}
-          </Button>
+          </FormButton>
         </Box>
       </form>
     </Box>
