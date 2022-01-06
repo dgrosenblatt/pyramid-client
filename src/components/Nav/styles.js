@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { Flex, Heading, Text } from '@chakra-ui/react'
+import { Button, Flex, Heading, Text } from '@chakra-ui/react'
 
 export const LinkBody = styled(Flex)`
   align-items: center;
@@ -12,4 +12,14 @@ export const LinkBodyText = styled(Text)`
 
 export const NavHeading = styled(Heading)`
   margin-bottom: 2rem;
+`
+
+export const NavButton = styled(Button)`
+  background-color: white;
+  border-radius: 1px;
+  display: flex;
+  font-weight: normal;
+  justify-content: flex-start;
+  padding-left: 0;
+  width: 100%;
 `

@@ -2,7 +2,8 @@ import { useEffect, useState } from 'react'
 import axios from 'axios'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
-import { ChakraProvider, Box, Flex } from '@chakra-ui/react'
+import { ChakraProvider, Box, Flex, Drawer, DrawerOverlay, DrawerContent,
+  DrawerCloseButton, DrawerHeader, DrawerBody, useDisclosure } from '@chakra-ui/react'
 
 import BuyForm from './components/BuyForm'
 import Nav from './components/Nav'
@@ -32,6 +33,8 @@ function App() {
   }
   useEffect(fetchUser, [])
 
+  const { isOpen: isBuyOpen, onOpen: onBuyOpen, onClose: onBuyClose } = useDisclosure()
+
   if (!teams || !user) {
     return <></>
   }
@@ -42,12 +45,11 @@ function App() {
         <main>
           <Flex h="100%">
             <Box w='200px' h="100%" padding="24px">
-              <Nav />
+              <Nav onBuyOpen={onBuyOpen} />
             </Box>
             <Box w="calc(100% - 200px)" h="100%" padding="1rem" bgColor="gray.50">
               <Routes>
                 <Route path="/admin" element={<AdminPanel teams={teams} fetchTeams={fetchTeams} />} />
-                <Route path="/buy" element={<BuyForm user={user} teams={teams} fetchUser={fetchUser} />} />
                 <Route path="/sell" element={<SellForm user={user} holdings={user.holdings} fetchUser={fetchUser} />} />
                 <Route path="/" element={<Dashboard user={user} fetchTeams={fetchTeams} teams={teams}/>} />
               </Routes>
@@ -55,6 +57,21 @@ function App() {
           </Flex>
         </main>
       </Router>
+      <Drawer
+        isOpen={isBuyOpen}
+        placement='right'
+        onClose={onBuyClose}
+        blockScrollOnMount={false}
+      >
+        <DrawerOverlay />
+        <DrawerContent>
+          <DrawerCloseButton />
+          <DrawerHeader>Buy Shares</DrawerHeader>
+          <DrawerBody>
+            <BuyForm user={user} teams={teams} fetchUser={fetchUser} onBuyClose={onBuyClose}/>
+          </DrawerBody>
+        </DrawerContent>
+      </Drawer>
     </ChakraProvider>
   );
 }

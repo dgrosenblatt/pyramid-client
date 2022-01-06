@@ -1,10 +1,11 @@
 import { useMemo, useState } from 'react'
-import { Box, Button, Heading, Slider, SliderMark, Select, SliderTrack,
+import { Box, Text, Slider, SliderMark, Select, SliderTrack,
   SliderFilledTrack, SliderThumb, useToast } from '@chakra-ui/react'
 import axios from 'axios'
+import { FormButton } from './styles'
 import { dollars } from '../../utils'
 
-const BuyForm = ({ user, teams, fetchUser }) => {
+const BuyForm = ({ user, teams, fetchUser, onBuyClose }) => {
   const [quantity, setQuantity] = useState(1)
 
   const teamsById = useMemo(() => {
@@ -21,11 +22,6 @@ const BuyForm = ({ user, teams, fetchUser }) => {
     setTeamOption(event.currentTarget.value)
   }
   const selectedTeam = teamsById[teamOption]
-
-  const resetForm = () => {
-    setQuantity(1)
-    setTeamOption(teams[0].id)
-  }
 
   const toast = useToast()
 
@@ -46,7 +42,7 @@ const BuyForm = ({ user, teams, fetchUser }) => {
           duration: 9000,
           isClosable: true,
         })
-        resetForm()
+        onBuyClose()
       })
       .catch(({ response }) => {
         const { error } = response.data
@@ -72,7 +68,6 @@ const BuyForm = ({ user, teams, fetchUser }) => {
 
   return (
     <Box borderWidth='1px' borderRadius='lg' marginTop="2" padding="2">
-      <Heading>Buy</Heading>
       <form onSubmit={(e) => {e.preventDefault()}}>
         <Box>
           <Select value={teamOption} onChange={onTeamOptionChange}>
@@ -80,6 +75,7 @@ const BuyForm = ({ user, teams, fetchUser }) => {
               <option key={team.id} value={team.id}>{team.name}</option>
             ))}
           </Select>
+          <Text position="relative" top="16px" textAlign="center">Current price: {dollars(selectedTeam.price)}</Text>
           <Box borderWidth='1px' borderRadius='lg' marginTop="8" marginBottom="8" padding="8">
             <Slider value={quantity} defaultValue={1} onChange={(val) => setQuantity(val)} min={1} max={maxShares}>
               <SliderMark
@@ -99,9 +95,9 @@ const BuyForm = ({ user, teams, fetchUser }) => {
               <SliderThumb />
             </Slider>
           </Box>
-          <Button colorScheme={buttonColor} onClick={onClickBuy}>
+          <FormButton colorScheme={buttonColor} onClick={onClickBuy}>
             {buttonText}
-          </Button>
+          </FormButton>
         </Box>
       </form>
     </Box>
