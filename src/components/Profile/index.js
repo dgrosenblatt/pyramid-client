@@ -7,7 +7,7 @@ const Profile = ({ user }) => {
     return <></>
   }
 
-  const { balance, holdings } = user
+  const { balance, holdings, total_value } = user
 
   const holdingsValue = holdings.reduce((acc, holding) => {
     const holdingValue = holding.quantity * holding.team.price
@@ -20,7 +20,7 @@ const Profile = ({ user }) => {
       <StatGroup>
         <Stat>
           <StatLabel>Total Portfolio Value</StatLabel>
-          <StatNumber>{dollars(balance + holdingsValue)}</StatNumber>
+          <StatNumber>{dollars(total_value)}</StatNumber>
         </Stat>
         <Stat>
           <StatLabel>Available cash</StatLabel>
@@ -50,7 +50,7 @@ const Profile = ({ user }) => {
             </Tr>
           ))}
         </Tbody>
-        <TableCaption>Current Positions</TableCaption>
+        <TableCaption>{holdings.length ? 'Current Positions' : "You don't own any stocks. Holdings will appear here."}</TableCaption>
       </Table>
     </Box>
   )

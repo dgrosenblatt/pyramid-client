@@ -29,7 +29,7 @@ const Standings = () => {
           {standings.map((user, index) => (
             <Tr key={user.id}>
               <Td>{index+1}</Td>
-              <Td>{dollars(user.balance)} +h</Td>
+              <Td>{dollars(user.total_value)}</Td>
               <Td>{user.name}</Td>
             </Tr>
           ))}
