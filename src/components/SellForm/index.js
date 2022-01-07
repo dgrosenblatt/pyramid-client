@@ -35,14 +35,12 @@ const SellForm = ({ onSellClose, holdings, fetchUser }) => {
     axios
       .delete(`http://localhost:3000/holdings/${selectedHolding.id}?quantity=${quantity}`)
       .then(({ data }) => {
-        // const { team } = data
-        // const { price, name } = team
+        console.log({ data })
 
         fetchUser()
         toast({
           title: `Success`,
-          description: 'it went',
-          // description: `Purchased ${quantity} ${name} @ ${dollars(price)}, Total: ${dollars(quantity * price)}`,
+          description: `Sold ${quantity} ${data.team.name} @ ${dollars(data.team.price)}, Total: ${dollars(quantity * data.team.price)}`,
           status: 'success',
           duration: 9000,
           isClosable: true,
