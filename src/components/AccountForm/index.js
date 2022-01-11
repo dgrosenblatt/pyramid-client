@@ -47,7 +47,14 @@ const AccountForm = ({ onSignUpClose, setUser }) => {
       setUser(response.data)
       onSignUpClose()
     }).catch(err => {
-      console.log({err})
+      const msg = err?.response?.data?.message ?? 'An error occurred, please try again.'
+      toast({
+        title: 'There was a problem',
+        description: msg,
+        status: 'error',
+        duration: 9000,
+        isClosable: true,
+      })
     }).finally(() => {
       setIsLoading(false)
     })
