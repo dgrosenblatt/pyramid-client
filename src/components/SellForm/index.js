@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react'
 import { Box, Text, Heading, Slider, SliderMark, Select, SliderTrack,
   SliderFilledTrack, SliderThumb, useToast } from '@chakra-ui/react'
-import axios from 'axios'
+import * as Api from '../../api'
 import { FormButton } from './styles'
 import { dollars } from '../../utils'
 
@@ -32,11 +32,8 @@ const SellForm = ({ onSellClose, holdings, fetchUser }) => {
   const onClickSell = () => {
     if (selectedHolding.team.is_locked) return
 
-    axios
-      .delete(`http://localhost:3000/holdings/${selectedHolding.id}?quantity=${quantity}`)
+    Api.deleteHolding({ quantity, holdingId: selectedHolding.id })
       .then(({ data }) => {
-        console.log({ data })
-
         fetchUser()
         toast({
           title: `Success`,

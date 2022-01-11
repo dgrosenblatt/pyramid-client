@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react'
 import { Box, Text, Slider, SliderMark, Select, SliderTrack,
   SliderFilledTrack, SliderThumb, useToast } from '@chakra-ui/react'
-import axios from 'axios'
+import * as Api from '../../api'
 import { FormButton } from './styles'
 import { dollars } from '../../utils'
 
@@ -28,8 +28,7 @@ const BuyForm = ({ user, teams, fetchUser, onBuyClose }) => {
   const onClickBuy = () => {
     if (selectedTeam.is_locked) return
 
-    axios
-      .post('http://localhost:3000/holdings', { quantity, team_id: teamOption })
+    Api.createHolding({ quantity, teamId: teamOption })
       .then(({ data }) => {
         const { team } = data
         const { price, name } = team

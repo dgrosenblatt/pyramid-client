@@ -1,10 +1,10 @@
-import { Box, Heading, Stat, StatGroup, StatLabel, StatNumber, Table, Td,
+import { Box, Button, Heading, Stat, StatGroup, StatLabel, StatNumber, Table, Td,
   Thead, Tbody, Tr, Th, TableCaption } from '@chakra-ui/react'
 import { dollars } from '../../utils'
 
-const Profile = ({ user }) => {
+const Profile = ({ onSignUpOpen, user }) => {
   if (!user) {
-    return <></>
+    user = { balance: 1000000, holdings: [], total_value: 1000000, guest: true }
   }
 
   const { balance, holdings, total_value } = user
@@ -16,7 +16,7 @@ const Profile = ({ user }) => {
 
   return (
     <Box bgColor="white" borderWidth='1px' borderRadius='lg' marginTop="2" marginBottom="1rem" padding="2">
-      <Heading size="md">Me</Heading>
+      <Heading size="md">{user.guest ? 'Your Portfolio' : 'Me'}</Heading>
       <StatGroup>
         <Stat>
           <StatLabel>Total Portfolio Value</StatLabel>
@@ -50,6 +50,7 @@ const Profile = ({ user }) => {
             </Tr>
           ))}
         </Tbody>
+        {user.guest && <TableCaption paddingTop="4"><Button colorScheme="green" onClick={onSignUpOpen}>Create an account to start trading!</Button></TableCaption>}
         <TableCaption>{holdings.length ? 'Current Positions' : "You don't own any stocks. Holdings will appear here."}</TableCaption>
       </Table>
     </Box>
