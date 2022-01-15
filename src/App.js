@@ -48,7 +48,7 @@ function App() {
         <main>
           <Flex h="100%">
             <Box w='200px' h="100%" padding="24px">
-              <Nav user={user} onSignUpOpen={onSignUpOpen} onBuyOpen={onBuyOpen} onSellOpen={onSellOpen}/>
+              <Nav user={user} setUser={setUser} onSignUpOpen={onSignUpOpen} onBuyOpen={onBuyOpen} onSellOpen={onSellOpen}/>
             </Box>
             <Box w="calc(100% - 200px)" h="100%" padding="1rem" bgColor="gray.50">
               <Routes>
