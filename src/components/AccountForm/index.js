@@ -1,17 +1,16 @@
 import { useState } from 'react'
 import {
   Box,
-  Button,
   Flex,
   FormControl,
   FormLabel,
-  FormErrorMessage,
   FormHelperText,
   Input,
   useToast
 } from '@chakra-ui/react'
 import { AiOutlineEye } from 'react-icons/ai'
 import * as Api from '../../api'
+import { SubmitButton } from './styles'
 
 const AccountForm = ({ onSignUpClose, setUser }) => {
   const [email, setEmail] = useState('')
@@ -31,7 +30,9 @@ const AccountForm = ({ onSignUpClose, setUser }) => {
 
   const toast = useToast()
 
-  const submit = () => {
+  const submit = (e) => {
+    e.preventDefault()
+
     setIsLoading(true)
 
     Api.createUser({ email, password, name })
@@ -48,6 +49,7 @@ const AccountForm = ({ onSignUpClose, setUser }) => {
       onSignUpClose()
     }).catch(err => {
       const msg = err?.response?.data?.message ?? 'An error occurred, please try again.'
+
       toast({
         title: 'There was a problem',
         description: msg,
@@ -59,8 +61,11 @@ const AccountForm = ({ onSignUpClose, setUser }) => {
       setIsLoading(false)
     })
   }
+
+  const submitButtonText = isLoading ? 'Creating...' : 'Create Account'
+
   return (
-    <form onSubmit={(e) => e.preventDefault()}>
+    <form onSubmit={submit}>
       <FormControl marginBottom="2.5" isRequired>
         <FormLabel htmlFor='email'>Email address</FormLabel>
         <Input onChange={onEmailChange} value={email} id='email' type='email' />
@@ -75,7 +80,7 @@ const AccountForm = ({ onSignUpClose, setUser }) => {
       <FormControl marginBottom="3.5" isRequired>
         <FormLabel htmlFor='password'>Password</FormLabel>
         <Flex position="relative">
-          <Input onChange={onPasswordChange} value={password} id='password' type={isPasswordVisible ? 'text' : 'password'} />
+          <Input onChange={onPasswordChange} value={password} id='password' type={isPasswordVisible ? 'text' : 'password'} minLength={8} />
           <Box zIndex="1" cursor="pointer" position="absolute" top="11px" right="10px">
             <AiOutlineEye onClick={togglePasswordVisible} size="20px"/>
           </Box>
@@ -84,7 +89,7 @@ const AccountForm = ({ onSignUpClose, setUser }) => {
       </FormControl>
 
       <Flex justifyContent="center">
-        <Button isLoading={isLoading} w="100%" colorScheme="green" onClick={submit}>Create Account</Button>
+        <SubmitButton disabled={isLoading} type="submit" value={submitButtonText} />
       </Flex>
     </form>
   )
