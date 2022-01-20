@@ -7,7 +7,7 @@ import { AiOutlinePlusSquare, AiOutlineLogin } from 'react-icons/ai'
 import { VscSignOut } from 'react-icons/vsc'
 import { LinkBody, LinkBodyText, NavHeading, NavButton } from './styles'
 
-const Nav = ({ user, setUser, onSignUpOpen, onBuyOpen, onSellOpen }) => {
+const Nav = ({ user, setUser, onSignUpOpen, onBuyOpen, onSellOpen, onLogInOpen }) => {
   const toast = useToast()
 
   const onSignOut = () => {
@@ -54,7 +54,7 @@ const Nav = ({ user, setUser, onSignUpOpen, onBuyOpen, onSellOpen }) => {
         </>
       ) : (
         <>
-          <NavButton onClick={() => {}}>
+          <NavButton onClick={onLogInOpen}>
             <LinkBody>
               <AiOutlineLogin /><LinkBodyText>Log In</LinkBodyText>
             </LinkBody>

@@ -5,6 +5,7 @@ import { ChakraProvider, Box, Flex, Drawer, DrawerOverlay, DrawerContent,
   DrawerCloseButton, DrawerHeader, DrawerBody, useDisclosure } from '@chakra-ui/react'
 
 import AccountForm from './components/AccountForm'
+import SessionForm from './components/SessionForm'
 import BuyForm from './components/BuyForm'
 import Nav from './components/Nav'
 import SellForm from './components/SellForm'
@@ -37,6 +38,7 @@ function App() {
   const { isOpen: isBuyOpen, onOpen: onBuyOpen, onClose: onBuyClose } = useDisclosure()
   const { isOpen: isSellOpen, onOpen: onSellOpen, onClose: onSellClose } = useDisclosure()
   const { isOpen: isSignUpOpen, onOpen: onSignUpOpen, onClose: onSignUpClose } = useDisclosure()
+  const { isOpen: isLogInOpen, onOpen: onLogInOpen, onClose: onLogInClose } = useDisclosure()
 
   if (!teams) {
     return <></>
@@ -48,7 +50,14 @@ function App() {
         <main>
           <Flex h="100%">
             <Box w='200px' h="100%" padding="24px">
-              <Nav user={user} setUser={setUser} onSignUpOpen={onSignUpOpen} onBuyOpen={onBuyOpen} onSellOpen={onSellOpen}/>
+              <Nav
+                user={user}
+                setUser={setUser}
+                onSignUpOpen={onSignUpOpen}
+                onBuyOpen={onBuyOpen}
+                onSellOpen={onSellOpen}
+                onLogInOpen={onLogInOpen}
+              />
             </Box>
             <Box w="calc(100% - 200px)" h="100%" padding="1rem" bgColor="gray.50">
               <Routes>
@@ -94,21 +103,38 @@ function App() {
           </Drawer>
         </>
       ) : (
-        <Drawer
-          isOpen={isSignUpOpen}
-          placement='right'
-          onClose={onSignUpClose}
-          blockScrollOnMount={false}
-        >
-          <DrawerOverlay />
-          <DrawerContent>
-            <DrawerCloseButton />
-            <DrawerHeader>Create New Account</DrawerHeader>
-            <DrawerBody>
-              <AccountForm onSignUpClose={onSignUpClose} setUser={setUser}/>
-            </DrawerBody>
-          </DrawerContent>
-        </Drawer>
+        <>
+          <Drawer
+            isOpen={isSignUpOpen}
+            placement='right'
+            onClose={onSignUpClose}
+            blockScrollOnMount={false}
+          >
+            <DrawerOverlay />
+            <DrawerContent>
+              <DrawerCloseButton />
+              <DrawerHeader>Create New Account</DrawerHeader>
+              <DrawerBody>
+                <AccountForm onSignUpClose={onSignUpClose} setUser={setUser}/>
+              </DrawerBody>
+            </DrawerContent>
+          </Drawer>
+          <Drawer
+            isOpen={isLogInOpen}
+            placement='right'
+            onClose={onLogInClose}
+            blockScrollOnMount={false}
+          >
+            <DrawerOverlay />
+            <DrawerContent>
+              <DrawerCloseButton />
+              <DrawerHeader>Log In To Your Account</DrawerHeader>
+              <DrawerBody>
+                <SessionForm onLogInClose={onLogInClose} setUser={setUser}/>
+              </DrawerBody>
+            </DrawerContent>
+          </Drawer>
+        </>
       )}
     </ChakraProvider>
   );

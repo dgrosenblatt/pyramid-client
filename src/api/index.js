@@ -34,8 +34,20 @@ export const deleteHolding = ({ quantity, holdingId }) => {
 
 export const createUser = ({ email, password, name }) => {
   return axios.post(
-    'http://localhost:3000/signup',
+    'http://localhost:3000/login',
     JSON.stringify({ user: { email, password, name } }),
+    {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    },
+  )
+}
+
+export const createSession = ({ email, password }) => {
+  return axios.post(
+    'http://localhost:3000/login',
+    JSON.stringify({ user: { email, password } }),
     {
       headers: {
         'Content-Type': 'application/json'
