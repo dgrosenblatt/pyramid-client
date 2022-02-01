@@ -16,16 +16,6 @@ export const SubmitButton = styled(Input)`
   }
 `
 
-export const PlainButton = styled.button`
-  background: none;
-  border: none;
-  font-size: var(--chakra-fontSizes-sm);
-  color: blue;
-  margin-top: 1rem;
-`
-
-export const Error = styled.div`
-  color: red;
-  font-size: var(--chakra-fontSizes-sm);
-
+export const Form = styled.form`
+  min-width: 400px;
 `

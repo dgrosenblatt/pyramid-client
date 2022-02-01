@@ -5,6 +5,7 @@ import { ChakraProvider, Box, Flex, Drawer, DrawerOverlay, DrawerContent,
   DrawerCloseButton, DrawerHeader, DrawerBody, useDisclosure } from '@chakra-ui/react'
 
 import AccountForm from './components/AccountForm'
+import PasswordForm from './components/PasswordForm'
 import SessionForm from './components/SessionForm'
 import BuyForm from './components/BuyForm'
 import Nav from './components/Nav'
@@ -48,8 +49,8 @@ function App() {
     <ChakraProvider>
       <Router>
         <main>
-          <Flex h="100%">
-            <Box w='200px' h="100%" padding="24px">
+          <Flex minHeight="100vh">
+            <Box w='200px' padding="24px">
               <Nav
                 user={user}
                 setUser={setUser}
@@ -59,8 +60,9 @@ function App() {
                 onLogInOpen={onLogInOpen}
               />
             </Box>
-            <Box w="calc(100% - 200px)" h="100%" padding="1rem" bgColor="gray.50">
+            <Box w="calc(100% - 200px)" padding="1rem" bgColor="gray.50">
               <Routes>
+                <Route path="/password/edit" element={<PasswordForm setUser={setUser}/>}/>
                 <Route path="/admin" element={<AdminPanel teams={teams} fetchTeams={fetchTeams} />} />
                 <Route path="/" element={<Dashboard onSignUpOpen={onSignUpOpen} user={user} fetchTeams={fetchTeams} teams={teams}/>} />
               </Routes>

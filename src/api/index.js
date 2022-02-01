@@ -2,7 +2,7 @@ import axios from 'axios'
 
 const baseUrl = process.env.REACT_APP_API_URL
 const token = localStorage.getItem('token')
-const getToken = () => {
+export const getToken = () => {
   return token ?? localStorage.getItem('token')
 }
 
@@ -34,7 +34,7 @@ export const deleteHolding = ({ quantity, holdingId }) => {
 
 export const createUser = ({ email, password, name }) => {
   return axios.post(
-    'http://localhost:3000/login',
+    `${baseUrl}/signup`,
     JSON.stringify({ user: { email, password, name } }),
     {
       headers: {
@@ -46,8 +46,32 @@ export const createUser = ({ email, password, name }) => {
 
 export const createSession = ({ email, password }) => {
   return axios.post(
-    'http://localhost:3000/login',
+    `${baseUrl}/login`,
     JSON.stringify({ user: { email, password } }),
+    {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    },
+  )
+}
+
+export const resetPassword = ({ email }) => {
+  return axios.post(
+    `${baseUrl}/password`,
+    JSON.stringify({ user: { email } }),
+    {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    },
+  )
+}
+
+export const updatePassword = ({ token = null, password }) => {
+  return axios.patch(
+    `${baseUrl}/password`,
+    JSON.stringify({ user: { reset_password_token: token, password } }),
     {
       headers: {
         'Content-Type': 'application/json'

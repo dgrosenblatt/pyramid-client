@@ -9,7 +9,7 @@ import {
 } from '@chakra-ui/react'
 import { AiOutlineEye } from 'react-icons/ai'
 import * as Api from '../../api'
-import { SubmitButton } from './styles'
+import { Error, PlainButton, SubmitButton } from './styles'
 
 const AccountForm = ({ onLogInClose, setUser }) => {
   const [email, setEmail] = useState('')
@@ -60,11 +60,45 @@ const AccountForm = ({ onLogInClose, setUser }) => {
 
   const submitButtonText = isLoading ? 'Logging In...' : 'Log In'
 
+  const [passwordResetError, setPasswordResetError] = useState('')
+  const resetPassword = (e) => {
+    e.preventDefault()
+
+    if (!email) {
+      setPasswordResetError('Please enter your email')
+      return
+    }
+
+    setPasswordResetError('')
+
+    Api.resetPassword({ email })
+    .then(() => {
+      toast({
+        description: `Password reset instructions have been sent to ${email}`,
+        status: 'success',
+        duration: 9000,
+        isClosable: true,
+      })
+
+    }).catch(err => {
+      const msg = err?.response?.data ?? 'An error occurred, please try again.'
+
+      toast({
+        title: 'There was a problem',
+        description: msg,
+        status: 'error',
+        duration: 9000,
+        isClosable: true,
+      })
+    })
+  }
+
   return (
     <form onSubmit={submit}>
       <FormControl marginBottom="2.5" isRequired>
         <FormLabel htmlFor='email'>Email address</FormLabel>
         <Input onChange={onEmailChange} value={email} id='email' type='email' />
+        {passwordResetError && <Error >{passwordResetError}</Error>}
       </FormControl>
 
       <FormControl marginBottom="3.5" isRequired>
@@ -80,6 +114,7 @@ const AccountForm = ({ onLogInClose, setUser }) => {
       <Flex justifyContent="center">
         <SubmitButton disabled={isLoading} type="submit" value={submitButtonText} />
       </Flex>
+      <PlainButton onClick={resetPassword}>Send password reset instructions</PlainButton>
     </form>
   )
 }
