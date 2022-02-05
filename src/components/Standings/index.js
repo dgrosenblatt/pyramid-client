@@ -1,13 +1,22 @@
 import { useEffect, useState } from 'react'
-import axios from 'axios'
 import { Box, Heading, Table, Td, Thead, Tbody, Tr, Th } from '@chakra-ui/react'
-import { dollars } from '../../utils'
+import * as Api from '../../api'
+import { dollars, publicName } from '../../utils'
 
-const Standings = () => {
+const getRowFontWeight = (place) => {
+  if (place > 5) return 'regular'
+  if (place > 1) return 'semibold'
+  return 'bold'
+}
+
+const getRowBackgroundColor = ({ user, currentUser }) => {
+  return currentUser?.id === user.id ? 'blue.100': 'none'
+}
+
+const Standings = ({ currentUser }) => {
   const [standings, setStandings] = useState([])
   useEffect(() => {
-    axios
-      .get('http://localhost:3000/standings')
+    Api.getStandings()
       .then(({ data }) => {
         setStandings(data)
       })
@@ -16,7 +25,7 @@ const Standings = () => {
   return (
     <Box bgColor="white" borderWidth='1px' borderRadius='lg' marginBottom="1rem" padding="2">
       <Heading size="md">Season 1 Standings</Heading>
-      <Heading size="sm">Division S</Heading>
+      <Heading size="sm">Division G</Heading>
       <Table size="sm">
         <Thead>
         <Tr>
@@ -27,10 +36,14 @@ const Standings = () => {
         </Thead>
         <Tbody>
           {standings.map((user, index) => (
-            <Tr key={user.id}>
+            <Tr
+              key={user.id}
+              fontWeight={getRowFontWeight(index+1)}
+              backgroundColor={getRowBackgroundColor({ user, currentUser })}
+            >
               <Td>{index+1}</Td>
               <Td>{dollars(user.total_value)}</Td>
-              <Td>{user.name}</Td>
+              <Td>{publicName(user)}</Td>
             </Tr>
           ))}
         </Tbody>

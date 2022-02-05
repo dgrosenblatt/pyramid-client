@@ -46,7 +46,7 @@ const Nav = ({ user, setUser, onSignUpOpen, onBuyOpen, onSellOpen, onLogInOpen }
               <VscSignOut /><LinkBodyText>Sign Out</LinkBodyText>
             </LinkBody>
           </NavButton>
-          {user.admin && (
+          {user?.admin && (
             <Link to="/admin">
               <LinkBody>
                 <BsFillGearFill /><LinkBodyText>Admin</LinkBodyText>

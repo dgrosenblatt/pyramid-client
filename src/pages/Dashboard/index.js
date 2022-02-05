@@ -4,7 +4,7 @@ import TeamsTable from '../../components/TeamsTable'
 
 const Dashboard = ({ onSignUpOpen, user, teams, fetchTeams }) => (
   <>
-    <Standings />
+    <Standings currentUser={user}/>
     <Profile onSignUpOpen={onSignUpOpen} user={user}/>
     <TeamsTable teams={teams} fetchTeams={fetchTeams} />
   </>

@@ -14,9 +14,11 @@ const Profile = ({ onSignUpOpen, user }) => {
     return acc + holdingValue
   }, 0)
 
+  const title = user.guest ? 'Your Portfolio' : `Holdings | ${user.email}`
+
   return (
     <Box bgColor="white" borderWidth='1px' borderRadius='lg' marginTop="2" marginBottom="1rem" padding="2">
-      <Heading size="md">{user.guest ? 'Your Portfolio' : 'Me'}</Heading>
+      <Heading size="md">{title}</Heading>
       <StatGroup>
         <Stat>
           <StatLabel>Total Portfolio Value</StatLabel>

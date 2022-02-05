@@ -9,6 +9,14 @@ export const getTeams = () => {
   return axios.get(`${baseUrl}/teams`)
 }
 
+export const getStandings = () => {
+  return axios
+    .get(
+      `${baseUrl}/standings`,
+      { headers: { 'Authorization': getToken() } }
+    )
+}
+
 export const lockTeam = (id) => {
   return axios
     .patch(

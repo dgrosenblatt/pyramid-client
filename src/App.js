@@ -63,7 +63,7 @@ function App() {
             <Box w="calc(100% - 200px)" padding="1rem" bgColor="gray.50">
               <Routes>
                 <Route path="/password/edit" element={<PasswordForm setUser={setUser}/>}/>
-                {user.admin && <Route path="/admin" element={<AdminPanel teams={teams} fetchTeams={fetchTeams} />} />}
+                {user?.admin && <Route path="/admin" element={<AdminPanel teams={teams} fetchTeams={fetchTeams} />} />}
                 <Route path="/" element={<Dashboard onSignUpOpen={onSignUpOpen} user={user} fetchTeams={fetchTeams} teams={teams}/>} />
               </Routes>
             </Box>
