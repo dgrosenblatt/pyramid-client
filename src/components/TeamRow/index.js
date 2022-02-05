@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Button, ButtonGroup, Tr, Td } from '@chakra-ui/react'
-import axios from 'axios'
+import * as Api from '../../api'
 import { dollars } from '../../utils'
 
 const TeamRow = ({ fetchTeams, team, isAdmin }) => {
@@ -15,8 +15,7 @@ const TeamRow = ({ fetchTeams, team, isAdmin }) => {
   const lockTeam = () => {
     setIsLockLoading(true)
 
-    axios
-      .patch(`http://localhost:3000/teams/${id}/lock`)
+    Api.lockTeam(id)
       .then(fetchTeams)
       .finally(() => {
         setIsLockLoading(false)
@@ -26,8 +25,7 @@ const TeamRow = ({ fetchTeams, team, isAdmin }) => {
   const unlockTeam = () => {
     setIsUnlockLoading(true)
 
-    axios
-      .patch(`http://localhost:3000/teams/${id}/unlock`)
+    Api.unlockTeam(id)
       .then(fetchTeams)
       .finally(() => {
         setIsUnlockLoading(false)
@@ -37,8 +35,7 @@ const TeamRow = ({ fetchTeams, team, isAdmin }) => {
   const addWin = () => {
     setIsAddWinLoading(true)
 
-    axios
-      .patch(`http://localhost:3000/teams/${id}/win`)
+    Api.addWin(id)
       .then(fetchTeams)
       .finally(() => {
         setIsAddWinLoading(false)
@@ -48,8 +45,7 @@ const TeamRow = ({ fetchTeams, team, isAdmin }) => {
   const addLoss = () => {
     setIsAddLossLoading(true)
 
-    axios
-      .patch(`http://localhost:3000/teams/${id}/lose`)
+    Api.addLoss(id)
       .then(fetchTeams)
       .finally(() => {
         setIsAddLossLoading(false)
@@ -59,8 +55,7 @@ const TeamRow = ({ fetchTeams, team, isAdmin }) => {
   const addTie = () => {
     setIsAddTieLoading(true)
 
-    axios
-      .patch(`http://localhost:3000/teams/${id}/tie`)
+    Api.addTie(id)
       .then(fetchTeams)
       .finally(() => {
         setIsAddTieLoading(false)

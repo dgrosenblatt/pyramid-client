@@ -46,11 +46,13 @@ const Nav = ({ user, setUser, onSignUpOpen, onBuyOpen, onSellOpen, onLogInOpen }
               <VscSignOut /><LinkBodyText>Sign Out</LinkBodyText>
             </LinkBody>
           </NavButton>
-          <Link to="/admin">
-            <LinkBody>
-              <BsFillGearFill /><LinkBodyText>Admin</LinkBodyText>
-            </LinkBody>
-          </Link>
+          {user.admin && (
+            <Link to="/admin">
+              <LinkBody>
+                <BsFillGearFill /><LinkBodyText>Admin</LinkBodyText>
+              </LinkBody>
+            </Link>
+          )}
         </>
       ) : (
         <>

@@ -1,13 +1,57 @@
 import axios from 'axios'
 
 const baseUrl = process.env.REACT_APP_API_URL
-const token = localStorage.getItem('token')
 export const getToken = () => {
-  return token ?? localStorage.getItem('token')
+  return localStorage.getItem('token')
 }
 
 export const getTeams = () => {
   return axios.get(`${baseUrl}/teams`)
+}
+
+export const lockTeam = (id) => {
+  return axios
+    .patch(
+      `${baseUrl}/admin/teams/${id}/lock`,
+      null,
+      { headers: { 'Authorization': getToken() } }
+    )
+}
+
+export const unlockTeam = (id) => {
+  return axios
+    .patch(
+      `${baseUrl}/admin/teams/${id}/unlock`,
+      null,
+      { headers: { 'Authorization': getToken() } }
+    )
+}
+
+export const addWin = (id) => {
+  return axios
+    .patch(
+      `${baseUrl}/admin/teams/${id}/win`,
+      null,
+      { headers: { 'Authorization': getToken() } }
+    )
+}
+
+export const addLoss = (id) => {
+  return axios
+    .patch(
+      `${baseUrl}/admin/teams/${id}/lose`,
+      null,
+      { headers: { 'Authorization': getToken() } }
+    )
+}
+
+export const addTie = (id) => {
+  return axios
+    .patch(
+      `${baseUrl}/admin/teams/${id}/tie`,
+      null,
+      { headers: { 'Authorization': getToken() } }
+    )
 }
 
 export const getUser = () => {
@@ -79,3 +123,4 @@ export const updatePassword = ({ token = null, password }) => {
     },
   )
 }
+
