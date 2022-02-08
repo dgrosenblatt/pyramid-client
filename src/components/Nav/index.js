@@ -23,7 +23,7 @@ const Nav = ({ user, setUser, onSignUpOpen, onBuyOpen, onSellOpen, onLogInOpen }
 
   return (
     <nav>
-      <NavHeading size="md">💸 Pyramid</NavHeading>
+      <NavHeading size="md" marginTop={["2", "2", "2", "0"]}>💸 Pyramid</NavHeading>
       <Link to="/">
         <LinkBody>
           <FaHome /><LinkBodyText>Dashboard</LinkBodyText>
@@ -71,7 +71,5 @@ const Nav = ({ user, setUser, onSignUpOpen, onBuyOpen, onSellOpen, onLogInOpen }
     </nav>
   )
 }
-
-
 
 export default Nav

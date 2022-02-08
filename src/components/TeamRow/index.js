@@ -1,9 +1,10 @@
 import { useState } from 'react'
-import { Button, ButtonGroup, Tr, Td } from '@chakra-ui/react'
+import { Button, ButtonGroup, Tr, Td, useMediaQuery } from '@chakra-ui/react'
 import * as Api from '../../api'
 import { dollars } from '../../utils'
 
 const TeamRow = ({ fetchTeams, team, isAdmin }) => {
+  const [isLargerThanMd] = useMediaQuery('(min-width: 48em)')
   const { id, is_locked: isLocked, name, price, wins, losses, ties } = team
 
   const [isLockLoading, setIsLockLoading] = useState(false)
@@ -65,56 +66,65 @@ const TeamRow = ({ fetchTeams, team, isAdmin }) => {
   const tradingStatus = isLocked ? 'Locked' : 'Available'
 
   return (
-    <Tr>
-      <Td>{name}</Td>
-      <Td>{tradingStatus}</Td>
-      <Td>{dollars(price)}</Td>
-      <Td>{wins}</Td>
-      <Td>{losses}</Td>
-      <Td>{ties}</Td>
-      {isAdmin && (
-        <Td>
-          <ButtonGroup size='sm' isAttached variant='outline'>
-            {isLocked ?
-              <Button
-                colorScheme="red"
-                variant="solid"
-                isLoading={isUnlockLoading}
-                onClick={unlockTeam}
-              >
-                Unlock
-              </Button>
-                :
-              <Button colorScheme="red" isLoading={isLockLoading} variant="solid" onClick={lockTeam}>Lock</Button>
-            }
-            <Button
-              colorScheme="blue"
-              variant="solid"
-              isLoading={isAddWinLoading}
-              onClick={addWin}
-            >
-              +Win
-            </Button>
-            <Button
-              colorScheme="blue"
-              variant="solid"
-              isLoading={isAddLossLoading}
-              onClick={addLoss}
-            >
-              +Loss
-            </Button>
-            <Button
-              colorScheme="blue"
-              variant="solid"
-              isLoading={isAddTieLoading}
-              onClick={addTie}
-            >
-              +Tie
-            </Button>
-          </ButtonGroup>
-        </Td>
+    <>
+      {isLargerThanMd ? (
+        <Tr>
+          <Td>{name}</Td>
+          <Td>{tradingStatus}</Td>
+          <Td>{dollars(price)}</Td>
+          <Td>{wins}</Td>
+          <Td>{losses}</Td>
+          <Td>{ties}</Td>
+          {isAdmin && (
+            <Td>
+              <ButtonGroup size='sm' isAttached variant='outline'>
+                {isLocked ?
+                  <Button
+                    colorScheme="red"
+                    variant="solid"
+                    isLoading={isUnlockLoading}
+                    onClick={unlockTeam}
+                  >
+                    Unlock
+                  </Button>
+                    :
+                  <Button colorScheme="red" isLoading={isLockLoading} variant="solid" onClick={lockTeam}>Lock</Button>
+                }
+                <Button
+                  colorScheme="blue"
+                  variant="solid"
+                  isLoading={isAddWinLoading}
+                  onClick={addWin}
+                >
+                  +Win
+                </Button>
+                <Button
+                  colorScheme="blue"
+                  variant="solid"
+                  isLoading={isAddLossLoading}
+                  onClick={addLoss}
+                >
+                  +Loss
+                </Button>
+                <Button
+                  colorScheme="blue"
+                  variant="solid"
+                  isLoading={isAddTieLoading}
+                  onClick={addTie}
+                >
+                  +Tie
+                </Button>
+              </ButtonGroup>
+            </Td>
+          )}
+        </Tr>
+      ) : (
+        <Tr>
+          <Td>{name} · {wins}-{losses}{Boolean(ties) && `-${ties}`} <br/>[{tradingStatus}]</Td>
+          <Td>{dollars(price)}</Td>
+        </Tr>
       )}
-    </Tr>
+    </>
   )
 }
 

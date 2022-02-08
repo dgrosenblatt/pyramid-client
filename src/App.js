@@ -2,12 +2,13 @@ import { useEffect, useState } from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import * as Api from './api'
 import { ChakraProvider, Box, Flex, Drawer, DrawerOverlay, DrawerContent,
-  DrawerCloseButton, DrawerHeader, DrawerBody, useDisclosure } from '@chakra-ui/react'
+  DrawerCloseButton, DrawerHeader, DrawerBody, useDisclosure, useMediaQuery } from '@chakra-ui/react'
 
 import AccountForm from './components/AccountForm'
 import PasswordForm from './components/PasswordForm'
 import SessionForm from './components/SessionForm'
 import BuyForm from './components/BuyForm'
+import MobileMenuDrawer from './components/MobileMenuDrawer';
 import Nav from './components/Nav'
 import SellForm from './components/SellForm'
 import Dashboard from './pages/Dashboard';
@@ -15,6 +16,8 @@ import AdminPanel from './pages/AdminPanel';
 import './App.css';
 
 function App() {
+const [isLargerThanSm] = useMediaQuery('(min-width: 30em)')
+
   const [teams, setTeams] = useState([])
   const fetchTeams = () => {
     Api.getTeams().then(
@@ -49,18 +52,31 @@ function App() {
     <ChakraProvider>
       <Router>
         <main>
-          <Flex minHeight="100vh">
-            <Box w='200px' padding="24px">
-              <Nav
-                user={user}
-                setUser={setUser}
-                onSignUpOpen={onSignUpOpen}
-                onBuyOpen={onBuyOpen}
-                onSellOpen={onSellOpen}
-                onLogInOpen={onLogInOpen}
-              />
-            </Box>
-            <Box w="calc(100% - 200px)" padding="1rem" bgColor="gray.50">
+          <Flex minHeight="100vh" direction={['column', 'column', 'column', 'row']}>
+            {isLargerThanSm ? (
+              <Box w='200px' padding="24px">
+                <Nav
+                  user={user}
+                  setUser={setUser}
+                  onSignUpOpen={onSignUpOpen}
+                  onBuyOpen={onBuyOpen}
+                  onSellOpen={onSellOpen}
+                  onLogInOpen={onLogInOpen}
+                />
+              </Box>
+            ) : (
+              <MobileMenuDrawer>
+                <Nav
+                  user={user}
+                  setUser={setUser}
+                  onSignUpOpen={onSignUpOpen}
+                  onBuyOpen={onBuyOpen}
+                  onSellOpen={onSellOpen}
+                  onLogInOpen={onLogInOpen}
+                />
+              </MobileMenuDrawer>
+            )}
+            <Box w={["auto", "auto", "auto", "calc(100% - 200px)"]} padding="1rem" bgColor="gray.50">
               <Routes>
                 <Route path="/password/edit" element={<PasswordForm setUser={setUser}/>}/>
                 {user?.admin && <Route path="/admin" element={<AdminPanel teams={teams} fetchTeams={fetchTeams} />} />}
