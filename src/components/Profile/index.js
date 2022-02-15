@@ -1,11 +1,22 @@
+import { useEffect, useState } from 'react'
 import { Box, Button, Heading, Stat, StatGroup, StatLabel, StatNumber, Table, Td,
-  Thead, Tbody, Tr, Th, TableCaption } from '@chakra-ui/react'
+  Thead, Tbody, Tr, Th, TableCaption, Spinner } from '@chakra-ui/react'
 import { dollars } from '../../utils'
+import * as Api from '../../api'
 
 const Profile = ({ onSignUpOpen, user }) => {
-  if (!user) {
-    user = { balance: 1000000, holdings: [], total_value: 1000000, guest: true }
-  }
+  const [ranking, setRanking] = useState(null)
+  const [rankingIsLoading, setRankingIsLoading] = useState(false)
+
+  useEffect(() => {
+    if (!user.guest) {
+      setRankingIsLoading(true)
+
+      Api.getUserRanking()
+        .then((response) => { setRanking(response.data.ranking)})
+        .finally(() => { setRankingIsLoading(false)})
+    }
+  }, [user])
 
   const { balance, holdings, total_value } = user
 
@@ -14,12 +25,17 @@ const Profile = ({ onSignUpOpen, user }) => {
     return acc + holdingValue
   }, 0)
 
-  const title = user.guest ? 'Your Portfolio' : `Holdings | ${user.email}`
+  const title = 'Your Portfolio'
 
   return (
     <Box bgColor="white" borderWidth='1px' borderRadius='lg' marginTop="2" marginBottom="1rem" padding="2">
       <Heading size="md">{title}</Heading>
+      <Heading size="sm">{user.email} {user.name && `[${user.name}]`}</Heading>
       <StatGroup>
+        <Stat>
+          <StatLabel>Current Ranking</StatLabel>
+          <StatNumber>{rankingIsLoading ? <Spinner /> : ranking}</StatNumber>
+        </Stat>
         <Stat>
           <StatLabel>Total Portfolio Value</StatLabel>
           <StatNumber>{dollars(total_value)}</StatNumber>

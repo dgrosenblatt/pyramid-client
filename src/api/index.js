@@ -69,6 +69,13 @@ export const getUser = () => {
   )
 }
 
+export const getUserRanking = () => {
+  return axios.get(
+    `${baseUrl}/current_user/ranking`,
+    { headers: { 'Authorization': getToken() } }
+  )
+}
+
 export const createHolding = ({ quantity, teamId }) => {
   return axios.post(
     `${baseUrl}/holdings`,
