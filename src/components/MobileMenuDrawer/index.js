@@ -20,7 +20,7 @@ const MobileMenuDrawer = ({ children }) => {
         <DrawerOverlay />
         <DrawerContent>
           <DrawerCloseButton />
-          <DrawerBody>{children}</DrawerBody>
+          <DrawerBody onClick={onClose}>{children}</DrawerBody>
         </DrawerContent>
       </Drawer>
     </Box>
