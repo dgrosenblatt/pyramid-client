@@ -120,8 +120,73 @@ const TeamRow = ({ fetchTeams, team, isAdmin }) => {
         </Tr>
       ) : (
         <Tr>
-          <Td>{name} · {wins}-{losses}{Boolean(ties) && `-${ties}`} <br/>[{tradingStatus}]</Td>
-          <Td>{dollars(price)}</Td>
+          <Td fontSize="xl">
+            {name} · {wins}-{losses}{Boolean(ties) && `-${ties}`}
+            <br/>
+            [{tradingStatus}]
+            {isAdmin && (
+              <>
+                <br />
+                <ButtonGroup size='sm' isAttached variant='outline' flexDirection="column">
+                  {isLocked ?
+                    <Button
+                      size="lg"
+                      colorScheme="red"
+                      variant="solid"
+                      isLoading={isUnlockLoading}
+                      onClick={unlockTeam}
+                      marginTop="1em"
+                    >
+                      Unlock
+                    </Button>
+                      :
+                    <Button
+                      size="lg"
+                      marginTop="1em"
+                      colorScheme="red"
+                      isLoading={isLockLoading}
+                      variant="solid"
+                      onClick={lockTeam}
+                    >
+                      Lock
+                    </Button>
+                  }
+                  <Button
+                    size="lg"
+                    colorScheme="blue"
+                    variant="solid"
+                    isLoading={isAddWinLoading}
+                    onClick={addWin}
+                    marginTop="1em"
+                  >
+                    +Win
+                  </Button>
+                  <Button
+                    size="lg"
+                    colorScheme="blue"
+                    variant="solid"
+                    isLoading={isAddLossLoading}
+                    onClick={addLoss}
+                    marginTop="1em"
+                  >
+                    +Loss
+                  </Button>
+                  <Button
+                    size="lg"
+                    colorScheme="blue"
+                    variant="solid"
+                    isLoading={isAddTieLoading}
+                    onClick={addTie}
+                    marginTop="1em"
+                  >
+                    +Tie
+                  </Button>
+                </ButtonGroup>
+              </>
+
+            )}
+          </Td>
+          <Td fontSize="xl">{dollars(price)}</Td>
         </Tr>
       )}
     </>
