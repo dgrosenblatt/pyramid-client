@@ -1,5 +1,5 @@
-import styled from 'styled-components'
-import { Input } from '@chakra-ui/react'
+import styled from "styled-components";
+import { Input } from "@chakra-ui/react";
 
 export const SubmitButton = styled(Input)`
   color: white;
@@ -14,7 +14,7 @@ export const SubmitButton = styled(Input)`
   :hover {
     background: var(--chakra-colors-green-600);
   }
-`
+`;
 
 export const PlainButton = styled.button`
   background: none;
@@ -22,10 +22,9 @@ export const PlainButton = styled.button`
   font-size: var(--chakra-fontSizes-sm);
   color: blue;
   margin-top: 1rem;
-`
+`;
 
 export const Error = styled.div`
   color: red;
   font-size: var(--chakra-fontSizes-sm);
-
-`
+`;

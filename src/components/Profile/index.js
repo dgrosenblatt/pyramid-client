@@ -1,42 +1,72 @@
-import { useEffect, useState } from 'react'
-import { Box, Button, Heading, Stat, StatGroup, StatLabel, StatNumber, Table, Td,
-  Thead, Tbody, Tr, Th, TableCaption, Spinner, useMediaQuery } from '@chakra-ui/react'
-import { dollars } from '../../utils'
-import * as Api from '../../api'
+import { useEffect, useState } from "react";
+import {
+  Box,
+  Button,
+  Heading,
+  Stat,
+  StatGroup,
+  StatLabel,
+  StatNumber,
+  Table,
+  Td,
+  Thead,
+  Tbody,
+  Tr,
+  Th,
+  TableCaption,
+  Spinner,
+  useMediaQuery,
+} from "@chakra-ui/react";
+import { dollars } from "../../utils";
+import * as Api from "../../api";
 
-const Profile = ({ onSignUpOpen, user }) => {''
-const [isLargerThanMd] = useMediaQuery('(min-width: 48em)')
+const Profile = ({ onSignUpOpen, user }) => {
+  "";
+  const [isLargerThanMd] = useMediaQuery("(min-width: 48em)");
 
-  const [ranking, setRanking] = useState(null)
-  const [rankingIsLoading, setRankingIsLoading] = useState(false)
+  const [ranking, setRanking] = useState(null);
+  const [rankingIsLoading, setRankingIsLoading] = useState(false);
 
   useEffect(() => {
     if (!user.guest) {
-      setRankingIsLoading(true)
+      setRankingIsLoading(true);
 
       Api.getUserRanking()
-        .then((response) => { setRanking(response.data.ranking)})
-        .finally(() => { setRankingIsLoading(false)})
+        .then((response) => {
+          setRanking(response.data.ranking);
+        })
+        .finally(() => {
+          setRankingIsLoading(false);
+        });
     }
 
     if (user.guest) {
-      setRanking(1)
+      setRanking(1);
     }
-  }, [user])
+  }, [user]);
 
-  const { balance, holdings, total_value } = user
+  const { balance, holdings, total_value } = user;
 
   const holdingsValue = holdings.reduce((acc, holding) => {
-    const holdingValue = holding.quantity * holding.team.price
-    return acc + holdingValue
-  }, 0)
+    const holdingValue = holding.quantity * holding.team.price;
+    return acc + holdingValue;
+  }, 0);
 
-  const title = 'Your Portfolio'
+  const title = "Your Portfolio";
 
   return (
-    <Box bgColor="white" borderWidth='1px' borderRadius='lg' marginTop="2" marginBottom="1rem" padding="2">
+    <Box
+      bgColor="white"
+      borderWidth="1px"
+      borderRadius="lg"
+      marginTop="2"
+      marginBottom="1rem"
+      padding="2"
+    >
       <Heading size="md">{title}</Heading>
-      <Heading size="sm">{user.email} {user.name && `[${user.name}]`}</Heading>
+      <Heading size="sm">
+        {user.email} {user.name && `[${user.name}]`}
+      </Heading>
       <StatGroup
         flexDirection={["column", "column", "column", "row"]}
         flexWrap="wrap"
@@ -60,7 +90,7 @@ const [isLargerThanMd] = useMediaQuery('(min-width: 48em)')
         </Stat>
       </StatGroup>
       {isLargerThanMd ? (
-        <Table variant='striped' colorScheme='green'>
+        <Table variant="striped" colorScheme="green">
           <Thead>
             <Tr>
               <Th></Th>
@@ -70,7 +100,7 @@ const [isLargerThanMd] = useMediaQuery('(min-width: 48em)')
             </Tr>
           </Thead>
           <Tbody>
-            {holdings.map(holding => (
+            {holdings.map((holding) => (
               <>
                 <Tr key={holding.id}>
                   <Td>{holding.team.name}</Td>
@@ -81,11 +111,21 @@ const [isLargerThanMd] = useMediaQuery('(min-width: 48em)')
               </>
             ))}
           </Tbody>
-          {user.guest && <TableCaption paddingTop="4"><Button colorScheme="green" onClick={onSignUpOpen}>Create an account to start trading!</Button></TableCaption>}
-          <TableCaption>{holdings.length ? 'Current Positions' : "You don't own any stocks. Holdings will appear here."}</TableCaption>
+          {user.guest && (
+            <TableCaption paddingTop="4">
+              <Button colorScheme="green" onClick={onSignUpOpen}>
+                Create an account to start trading!
+              </Button>
+            </TableCaption>
+          )}
+          <TableCaption>
+            {holdings.length
+              ? "Current Positions"
+              : "You don't own any stocks. Holdings will appear here."}
+          </TableCaption>
         </Table>
-      ): (
-        <Table variant='striped' colorScheme='green'>
+      ) : (
+        <Table variant="striped" colorScheme="green">
           <Thead>
             <Tr>
               <Th></Th>
@@ -93,21 +133,36 @@ const [isLargerThanMd] = useMediaQuery('(min-width: 48em)')
             </Tr>
           </Thead>
           <Tbody>
-            {holdings.map(holding => (
+            {holdings.map((holding) => (
               <>
                 <Tr key={holding.id}>
-                  <Td>{holding.quantity} {holding.team.name} @ {dollars(holding.team.price)}</Td>
+                  <Td>
+                    {holding.quantity} {holding.team.name} @{" "}
+                    {dollars(holding.team.price)}
+                  </Td>
                   <Td>{dollars(holding.quantity * holding.team.price)}</Td>
                 </Tr>
               </>
             ))}
           </Tbody>
-          {user.guest && <TableCaption paddingTop="4"><Button colorScheme="green" onClick={onSignUpOpen}>{isLargerThanMd ? 'Create an account to start trading!' : 'Sign up to start trading!'}</Button></TableCaption>}
-          <TableCaption>{holdings.length ? 'Current Positions' : "You don't own any stocks. Holdings will appear here."}</TableCaption>
+          {user.guest && (
+            <TableCaption paddingTop="4">
+              <Button colorScheme="green" onClick={onSignUpOpen}>
+                {isLargerThanMd
+                  ? "Create an account to start trading!"
+                  : "Sign up to start trading!"}
+              </Button>
+            </TableCaption>
+          )}
+          <TableCaption>
+            {holdings.length
+              ? "Current Positions"
+              : "You don't own any stocks. Holdings will appear here."}
+          </TableCaption>
         </Table>
       )}
     </Box>
-  )
-}
+  );
+};
 
-export default Profile
+export default Profile;

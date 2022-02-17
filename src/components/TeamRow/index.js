@@ -1,69 +1,69 @@
-import { useState } from 'react'
-import { Button, ButtonGroup, Tr, Td, useMediaQuery } from '@chakra-ui/react'
-import * as Api from '../../api'
-import { dollars } from '../../utils'
+import { useState } from "react";
+import { Button, ButtonGroup, Tr, Td, useMediaQuery } from "@chakra-ui/react";
+import * as Api from "../../api";
+import { dollars } from "../../utils";
 
 const TeamRow = ({ fetchTeams, team, isAdmin }) => {
-  const [isLargerThanMd] = useMediaQuery('(min-width: 48em)')
-  const { id, is_locked: isLocked, name, price, wins, losses, ties } = team
+  const [isLargerThanMd] = useMediaQuery("(min-width: 48em)");
+  const { id, is_locked: isLocked, name, price, wins, losses, ties } = team;
 
-  const [isLockLoading, setIsLockLoading] = useState(false)
-  const [isUnlockLoading, setIsUnlockLoading] = useState(false)
-  const [isAddWinLoading, setIsAddWinLoading] = useState(false)
-  const [isAddLossLoading, setIsAddLossLoading] = useState(false)
-  const [isAddTieLoading, setIsAddTieLoading] = useState(false)
+  const [isLockLoading, setIsLockLoading] = useState(false);
+  const [isUnlockLoading, setIsUnlockLoading] = useState(false);
+  const [isAddWinLoading, setIsAddWinLoading] = useState(false);
+  const [isAddLossLoading, setIsAddLossLoading] = useState(false);
+  const [isAddTieLoading, setIsAddTieLoading] = useState(false);
 
   const lockTeam = () => {
-    setIsLockLoading(true)
+    setIsLockLoading(true);
 
     Api.lockTeam(id)
       .then(fetchTeams)
       .finally(() => {
-        setIsLockLoading(false)
-      })
-  }
+        setIsLockLoading(false);
+      });
+  };
 
   const unlockTeam = () => {
-    setIsUnlockLoading(true)
+    setIsUnlockLoading(true);
 
     Api.unlockTeam(id)
       .then(fetchTeams)
       .finally(() => {
-        setIsUnlockLoading(false)
-      })
-  }
+        setIsUnlockLoading(false);
+      });
+  };
 
   const addWin = () => {
-    setIsAddWinLoading(true)
+    setIsAddWinLoading(true);
 
     Api.addWin(id)
       .then(fetchTeams)
       .finally(() => {
-        setIsAddWinLoading(false)
-      })
-  }
+        setIsAddWinLoading(false);
+      });
+  };
 
   const addLoss = () => {
-    setIsAddLossLoading(true)
+    setIsAddLossLoading(true);
 
     Api.addLoss(id)
       .then(fetchTeams)
       .finally(() => {
-        setIsAddLossLoading(false)
-      })
-  }
+        setIsAddLossLoading(false);
+      });
+  };
 
   const addTie = () => {
-    setIsAddTieLoading(true)
+    setIsAddTieLoading(true);
 
     Api.addTie(id)
       .then(fetchTeams)
       .finally(() => {
-        setIsAddTieLoading(false)
-      })
-  }
+        setIsAddTieLoading(false);
+      });
+  };
 
-  const tradingStatus = isLocked ? 'Locked' : 'Available'
+  const tradingStatus = isLocked ? "Locked" : "Available";
 
   return (
     <>
@@ -77,8 +77,8 @@ const TeamRow = ({ fetchTeams, team, isAdmin }) => {
           <Td>{ties}</Td>
           {isAdmin && (
             <Td>
-              <ButtonGroup size='sm' isAttached variant='outline'>
-                {isLocked ?
+              <ButtonGroup size="sm" isAttached variant="outline">
+                {isLocked ? (
                   <Button
                     colorScheme="red"
                     variant="solid"
@@ -87,9 +87,16 @@ const TeamRow = ({ fetchTeams, team, isAdmin }) => {
                   >
                     Unlock
                   </Button>
-                    :
-                  <Button colorScheme="red" isLoading={isLockLoading} variant="solid" onClick={lockTeam}>Lock</Button>
-                }
+                ) : (
+                  <Button
+                    colorScheme="red"
+                    isLoading={isLockLoading}
+                    variant="solid"
+                    onClick={lockTeam}
+                  >
+                    Lock
+                  </Button>
+                )}
                 <Button
                   colorScheme="blue"
                   variant="solid"
@@ -121,14 +128,19 @@ const TeamRow = ({ fetchTeams, team, isAdmin }) => {
       ) : (
         <Tr>
           <Td fontSize="xl">
-            {name} · {wins}-{losses}{Boolean(ties) && `-${ties}`}
-            <br/>
-            [{tradingStatus}]
+            {name} · {wins}-{losses}
+            {Boolean(ties) && `-${ties}`}
+            <br />[{tradingStatus}]
             {isAdmin && (
               <>
                 <br />
-                <ButtonGroup size='sm' isAttached variant='outline' flexDirection="column">
-                  {isLocked ?
+                <ButtonGroup
+                  size="sm"
+                  isAttached
+                  variant="outline"
+                  flexDirection="column"
+                >
+                  {isLocked ? (
                     <Button
                       size="lg"
                       colorScheme="red"
@@ -139,7 +151,7 @@ const TeamRow = ({ fetchTeams, team, isAdmin }) => {
                     >
                       Unlock
                     </Button>
-                      :
+                  ) : (
                     <Button
                       size="lg"
                       marginTop="1em"
@@ -150,7 +162,7 @@ const TeamRow = ({ fetchTeams, team, isAdmin }) => {
                     >
                       Lock
                     </Button>
-                  }
+                  )}
                   <Button
                     size="lg"
                     colorScheme="blue"
@@ -183,14 +195,13 @@ const TeamRow = ({ fetchTeams, team, isAdmin }) => {
                   </Button>
                 </ButtonGroup>
               </>
-
             )}
           </Td>
           <Td fontSize="xl">{dollars(price)}</Td>
         </Tr>
       )}
     </>
-  )
-}
+  );
+};
 
-export default TeamRow
+export default TeamRow;
