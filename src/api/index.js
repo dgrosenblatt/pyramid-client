@@ -21,6 +21,14 @@ export const lockTeam = (id) => {
   });
 };
 
+export const scheduleTeamLock = ({ teamId, locked_at }) => {
+  return axios.patch(
+    `${baseUrl}/admin/teams/${teamId}/schedule_lock`,
+    { locked_at },
+    { headers: { Authorization: getToken() } }
+  );
+};
+
 export const unlockTeam = (id) => {
   return axios.patch(`${baseUrl}/admin/teams/${id}/unlock`, null, {
     headers: { Authorization: getToken() },
