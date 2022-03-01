@@ -85,6 +85,7 @@ const AdminTeamsTable = ({ teams, fetchTeams }) => {
       <Table>
         <Tbody>
           {teams.map((team) => (
+            // deal with no team?
             <Tr key={team.id}>
               <Td>{team.name}</Td>
               <Td>

@@ -24,6 +24,7 @@ import Nav from "./components/Nav";
 import SellForm from "./components/SellForm";
 import Dashboard from "./pages/Dashboard";
 import AdminPanel from "./pages/AdminPanel";
+import Portfolio from "./pages/Portfolio";
 import "./App.css";
 
 function App() {
@@ -115,6 +116,7 @@ function App() {
                   path="/password/edit"
                   element={<PasswordForm setUser={setUser} />}
                 />
+                <Route path="/portfolio" element={<Portfolio user={user} />} />
                 {user?.admin && (
                   <Route
                     path="/admin"
