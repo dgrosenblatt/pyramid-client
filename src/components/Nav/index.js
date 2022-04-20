@@ -31,7 +31,7 @@ const Nav = ({
   return (
     <nav>
       <NavHeading size="md" marginTop={["2", "2", "2", "0"]}>
-        💸 Pyramid
+        💸 Sportfolio
       </NavHeading>
       <Link to="/">
         <LinkBody>
