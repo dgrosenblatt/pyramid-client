@@ -80,6 +80,7 @@ const TeamsTable = ({ teams, fetchTeams }) => {
         <TableCaption>
           <Text>Prices are based on W%, minimum $100</Text>
           <Text>W pays $100 dividend per share</Text>
+          <Text>Records are updated hourly</Text>
         </TableCaption>
       </Table>
     </Box>
