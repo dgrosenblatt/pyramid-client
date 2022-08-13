@@ -50,6 +50,8 @@ function App() {
   };
   useEffect(fetchUser, []);
 
+  const [prefillBuyTeamId, setPrefillBuyTeamId] = useState(null);
+
   const {
     isOpen: isBuyOpen,
     onOpen: onBuyOpen,
@@ -133,6 +135,8 @@ function App() {
                       user={user}
                       fetchTeams={fetchTeams}
                       teams={teams}
+                      setPrefillBuyTeamId={setPrefillBuyTeamId}
+                      onBuyOpen={onBuyOpen}
                     />
                   }
                 />
@@ -159,6 +163,8 @@ function App() {
                   teams={teams}
                   fetchUser={fetchUser}
                   onBuyClose={onBuyClose}
+                  prefillBuyTeamId={prefillBuyTeamId}
+                  setPrefillBuyTeamId={setPrefillBuyTeamId}
                 />
               </DrawerBody>
             </DrawerContent>

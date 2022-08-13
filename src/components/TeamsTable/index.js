@@ -14,7 +14,7 @@ import {
 import { TiArrowUnsorted } from "react-icons/ti";
 import TeamRow from "../TeamRow";
 
-const TeamsTable = ({ teams, fetchTeams }) => {
+const TeamsTable = ({ teams, fetchTeams, setPrefillBuyTeamId, onBuyOpen }) => {
   const [isLargerThanMd] = useMediaQuery("(min-width: 48em)");
 
   const [statusSort, setStatusSort] = useState(false);
@@ -39,7 +39,7 @@ const TeamsTable = ({ teams, fetchTeams }) => {
 
   return (
     <Box bgColor="white" borderWidth="1px" borderRadius="lg" padding="2">
-      <Table variant="striped" colorScheme="green">
+      <Table variant="striped" colorScheme="gray">
         <Thead>
           {isLargerThanMd ? (
             <Tr>
@@ -74,6 +74,8 @@ const TeamsTable = ({ teams, fetchTeams }) => {
               team={team}
               fetchTeams={fetchTeams}
               isAdmin={false}
+              setPrefillBuyTeamId={setPrefillBuyTeamId}
+              onBuyOpen={onBuyOpen}
             />
           ))}
         </Tbody>

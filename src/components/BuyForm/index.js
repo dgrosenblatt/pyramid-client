@@ -14,7 +14,14 @@ import * as Api from "../../api";
 import { FormButton } from "./styles";
 import { dollars } from "../../utils";
 
-const BuyForm = ({ user, teams, fetchUser, onBuyClose }) => {
+const BuyForm = ({
+  user,
+  teams,
+  fetchUser,
+  onBuyClose,
+  prefillBuyTeamId,
+  setPrefillBuyTeamId,
+}) => {
   const [quantity, setQuantity] = useState(1);
 
   const teamsById = useMemo(() => {
@@ -25,7 +32,8 @@ const BuyForm = ({ user, teams, fetchUser, onBuyClose }) => {
     return byId;
   }, [teams]);
 
-  const [teamOption, setTeamOption] = useState(teams[0].id);
+  const initialOption = prefillBuyTeamId ?? teams[0].id;
+  const [teamOption, setTeamOption] = useState(initialOption);
   const onTeamOptionChange = (event) => {
     setQuantity(1);
     setTeamOption(event.currentTarget.value);
@@ -52,6 +60,11 @@ const BuyForm = ({ user, teams, fetchUser, onBuyClose }) => {
           duration: 9000,
           isClosable: true,
         });
+
+        if (prefillBuyTeamId) {
+          setPrefillBuyTeamId(null);
+        }
+
         onBuyClose();
       })
       .catch(({ response }) => {

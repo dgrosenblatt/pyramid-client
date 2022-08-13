@@ -2,8 +2,15 @@ import { useState } from "react";
 import { Button, ButtonGroup, Tr, Td, useMediaQuery } from "@chakra-ui/react";
 import * as Api from "../../api";
 import { dollars } from "../../utils";
+import { PlainButton, RowButton } from "./styles";
 
-const TeamRow = ({ fetchTeams, team, isAdmin }) => {
+const TeamRow = ({
+  fetchTeams,
+  team,
+  isAdmin,
+  onBuyOpen,
+  setPrefillBuyTeamId,
+}) => {
   const [isLargerThanMd] = useMediaQuery("(min-width: 48em)");
   const { id, is_locked: isLocked, name, price, wins, losses, ties } = team;
 
@@ -63,6 +70,11 @@ const TeamRow = ({ fetchTeams, team, isAdmin }) => {
       });
   };
 
+  const onClickBuy = () => {
+    setPrefillBuyTeamId(id);
+    onBuyOpen();
+  };
+
   const tradingStatus = isLocked ? "Locked" : "Available";
 
   return (
@@ -70,7 +82,14 @@ const TeamRow = ({ fetchTeams, team, isAdmin }) => {
       {isLargerThanMd ? (
         <Tr>
           <Td>{name}</Td>
-          <Td>{tradingStatus}</Td>
+          <Td>
+            {tradingStatus}
+            {!isLocked && (
+              <RowButton onClick={onClickBuy} colorScheme="green" size="xs">
+                Buy
+              </RowButton>
+            )}
+          </Td>
           <Td>{dollars(price)}</Td>
           <Td>{wins}</Td>
           <Td>{losses}</Td>
@@ -130,7 +149,8 @@ const TeamRow = ({ fetchTeams, team, isAdmin }) => {
           <Td fontSize="xl">
             {name} · {wins}-{losses}
             {Boolean(ties) && `-${ties}`}
-            <br />[{tradingStatus}]
+            <br />[{tradingStatus} ·{" "}
+            <PlainButton onClick={onClickBuy}>Buy</PlainButton>]
             {isAdmin && (
               <>
                 <br />

@@ -3,7 +3,14 @@ import Profile from "../../components/Profile";
 import TeamsTable from "../../components/TeamsTable";
 import Welcome from "../../components/Welcome";
 
-const Dashboard = ({ onSignUpOpen, user, teams, fetchTeams }) => {
+const Dashboard = ({
+  onSignUpOpen,
+  user,
+  teams,
+  fetchTeams,
+  setPrefillBuyTeamId,
+  onBuyOpen,
+}) => {
   const currentOrGuestUser = user ?? {
     balance: 1000000,
     holdings: [],
@@ -16,7 +23,12 @@ const Dashboard = ({ onSignUpOpen, user, teams, fetchTeams }) => {
       <Welcome />
       <Standings currentUser={user} />
       <Profile onSignUpOpen={onSignUpOpen} user={currentOrGuestUser} />
-      <TeamsTable teams={teams} fetchTeams={fetchTeams} />
+      <TeamsTable
+        onBuyOpen={onBuyOpen}
+        teams={teams}
+        fetchTeams={fetchTeams}
+        setPrefillBuyTeamId={setPrefillBuyTeamId}
+      />
     </>
   );
 };
