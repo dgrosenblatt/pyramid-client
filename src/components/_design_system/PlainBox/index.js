@@ -1,4 +1,4 @@
-import { Box } from '@chakra-ui/react'
+import { Box } from "@chakra-ui/react";
 
 const PlainBox = ({ children }) => (
   <Box
@@ -11,6 +11,6 @@ const PlainBox = ({ children }) => (
   >
     {children}
   </Box>
-)
+);
 
 export default PlainBox;

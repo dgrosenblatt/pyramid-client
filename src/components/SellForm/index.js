@@ -15,7 +15,13 @@ import * as Api from "../../api";
 import { FormButton } from "./styles";
 import { dollars } from "../../utils";
 
-const SellForm = ({ onSellClose, holdings, fetchUser, prefillSellHoldingId, setPrefillSellHoldingId }) => {
+const SellForm = ({
+  onSellClose,
+  holdings,
+  fetchUser,
+  prefillSellHoldingId,
+  setPrefillSellHoldingId,
+}) => {
   const [quantity, setQuantity] = useState(1);
 
   const holdingsById = useMemo(() => {
@@ -26,7 +32,7 @@ const SellForm = ({ onSellClose, holdings, fetchUser, prefillSellHoldingId, setP
     return byId;
   }, [holdings]);
 
-  const initialHoldingOption = prefillSellHoldingId ?? holdings[0]?.id
+  const initialHoldingOption = prefillSellHoldingId ?? holdings[0]?.id;
   const [holdingOption, setHoldingOption] = useState(initialHoldingOption);
   const onTeamOptionChange = (event) => {
     setQuantity(1);
@@ -55,7 +61,7 @@ const SellForm = ({ onSellClose, holdings, fetchUser, prefillSellHoldingId, setP
           duration: 9000,
           isClosable: true,
         });
-        setPrefillSellHoldingId(null)
+        setPrefillSellHoldingId(null);
         onSellClose();
       })
       .catch(({ response }) => {

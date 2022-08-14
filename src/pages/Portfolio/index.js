@@ -1,6 +1,6 @@
 import { Box, Heading, Spinner } from "@chakra-ui/react";
 import { PieChart, Pie, Tooltip } from "recharts";
-import { dollars } from '../../utils'
+import { dollars } from "../../utils";
 
 const pieChartColors = [
   "var(--chakra-colors-red-300)",
@@ -11,7 +11,7 @@ const pieChartColors = [
   "var(--chakra-colors-purple-300)",
   "var(--chakra-colors-pink-300)",
   "var(--chakra-colors-teal-300)",
-]
+];
 
 const Portfolio = ({ user }) => {
   if (!user) return <Spinner />;
@@ -22,7 +22,14 @@ const Portfolio = ({ user }) => {
     return { name, value, fill: pieChartColors[index] };
   });
 
-  const pieData = [...holdingData, { name: "Cash", value: user.balance, fill: pieChartColors[holdingData.length] }];
+  const pieData = [
+    ...holdingData,
+    {
+      name: "Cash",
+      value: user.balance,
+      fill: pieChartColors[holdingData.length],
+    },
+  ];
 
   return (
     <Box>
@@ -36,7 +43,7 @@ const Portfolio = ({ user }) => {
         <Heading textAlign="center">My Portfolio</Heading>
         <PieChart width={1000} height={450}>
           <Pie
-            label={(entry) => `${entry.name} · ${dollars(entry.value)}` }
+            label={(entry) => `${entry.name} · ${dollars(entry.value)}`}
             data={pieData}
             dataKey="value"
             nameKey="name"

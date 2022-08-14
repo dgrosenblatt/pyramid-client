@@ -19,10 +19,15 @@ import {
 } from "@chakra-ui/react";
 import { dollars } from "../../utils";
 import * as Api from "../../api";
-import Maybe from '../_shared/Maybe'
+import Maybe from "../_shared/Maybe";
 import { PlainButton } from "./styles";
 
-const Profile = ({ onSignUpOpen, user, setPrefillSellHoldingId, onSellOpen }) => {
+const Profile = ({
+  onSignUpOpen,
+  user,
+  setPrefillSellHoldingId,
+  onSellOpen,
+}) => {
   const [isLargerThanMd] = useMediaQuery("(min-width: 48em)");
 
   const [ranking, setRanking] = useState(null);
@@ -54,9 +59,9 @@ const Profile = ({ onSignUpOpen, user, setPrefillSellHoldingId, onSellOpen }) =>
   }, 0);
 
   const onClickSell = (holdingId) => {
-    setPrefillSellHoldingId(holdingId)
-    onSellOpen()
-  }
+    setPrefillSellHoldingId(holdingId);
+    onSellOpen();
+  };
 
   const title = "Your Portfolio";
 
@@ -114,7 +119,13 @@ const Profile = ({ onSignUpOpen, user, setPrefillSellHoldingId, onSellOpen }) =>
                   <Td>{dollars(holding.team.price)}</Td>
                   <Td display="flex" justifyContent="space-between">
                     {dollars(holding.quantity * holding.team.price)}
-                    <Button onClick={() => onClickSell(holding.id)} colorScheme="red" size="xs">Sell</Button>
+                    <Button
+                      onClick={() => onClickSell(holding.id)}
+                      colorScheme="red"
+                      size="xs"
+                    >
+                      Sell
+                    </Button>
                   </Td>
                 </Tr>
               </>
@@ -148,7 +159,9 @@ const Profile = ({ onSignUpOpen, user, setPrefillSellHoldingId, onSellOpen }) =>
                   <Td display="flex" justifyContent="space-between">
                     {holding.quantity} {holding.team.abbreviation} @{" "}
                     {dollars(holding.team.price)}
-                    <PlainButton onClick={() => onClickSell(holding.id)}>Sell</PlainButton>
+                    <PlainButton onClick={() => onClickSell(holding.id)}>
+                      Sell
+                    </PlainButton>
                   </Td>
                   <Td>{dollars(holding.quantity * holding.team.price)}</Td>
                 </Tr>
