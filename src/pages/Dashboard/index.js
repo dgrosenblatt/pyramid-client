@@ -9,7 +9,9 @@ const Dashboard = ({
   teams,
   fetchTeams,
   setPrefillBuyTeamId,
+  setPrefillSellHoldingId,
   onBuyOpen,
+  onSellOpen,
 }) => {
   const currentOrGuestUser = user ?? {
     balance: 1000000,
@@ -22,7 +24,12 @@ const Dashboard = ({
     <>
       <Welcome />
       <Standings currentUser={user} />
-      <Profile onSignUpOpen={onSignUpOpen} user={currentOrGuestUser} />
+      <Profile
+        onSignUpOpen={onSignUpOpen}
+        user={currentOrGuestUser}
+        setPrefillSellHoldingId={setPrefillSellHoldingId}
+        onSellOpen={onSellOpen}
+      />
       <TeamsTable
         onBuyOpen={onBuyOpen}
         teams={teams}

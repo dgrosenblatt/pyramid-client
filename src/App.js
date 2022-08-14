@@ -51,6 +51,7 @@ function App() {
   useEffect(fetchUser, []);
 
   const [prefillBuyTeamId, setPrefillBuyTeamId] = useState(null);
+  const [prefillSellHoldingId, setPrefillSellHoldingId] = useState(null);
 
   const {
     isOpen: isBuyOpen,
@@ -136,7 +137,9 @@ function App() {
                       fetchTeams={fetchTeams}
                       teams={teams}
                       setPrefillBuyTeamId={setPrefillBuyTeamId}
+                      setPrefillSellHoldingId={setPrefillSellHoldingId}
                       onBuyOpen={onBuyOpen}
+                      onSellOpen={onSellOpen}
                     />
                   }
                 />
@@ -185,6 +188,8 @@ function App() {
                   holdings={user.holdings}
                   fetchUser={fetchUser}
                   onSellClose={onSellClose}
+                  prefillSellHoldingId={prefillSellHoldingId}
+                  setPrefillSellHoldingId={setPrefillSellHoldingId}
                 />
               </DrawerBody>
             </DrawerContent>
