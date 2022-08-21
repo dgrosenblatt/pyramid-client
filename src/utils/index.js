@@ -6,6 +6,10 @@ export const dollars = (number) => {
   }).format(number);
 };
 
+export const percent = (decimal) => {
+  return `${Math.round(decimal * 100)}%`;
+};
+
 export const publicName = ({ id, name }) => {
   return name || `Player ${id * 7}`;
 };

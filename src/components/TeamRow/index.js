@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { Button, ButtonGroup, Tr, Td, useMediaQuery } from "@chakra-ui/react";
 import * as Api from "../../api";
-import { dollars } from "../../utils";
-import { PlainButton, RowButton } from "./styles";
+import { dollars, percent } from "../../utils";
+import { PlainButton, RowButton, Gain, Loss } from "./styles";
 
 const TeamRow = ({
   fetchTeams,
@@ -12,7 +12,17 @@ const TeamRow = ({
   setPrefillBuyTeamId,
 }) => {
   const [isLargerThanMd] = useMediaQuery("(min-width: 48em)");
-  const { id, is_locked: isLocked, name, price, wins, losses, ties } = team;
+  const {
+    id,
+    is_locked: isLocked,
+    name,
+    price,
+    wins,
+    losses,
+    ties,
+    potential_weekly_gain: potentialWeeklyGain,
+    potential_weekly_loss: potentialWeeklyLoss,
+  } = team;
 
   const [isLockLoading, setIsLockLoading] = useState(false);
   const [isUnlockLoading, setIsUnlockLoading] = useState(false);
@@ -91,6 +101,10 @@ const TeamRow = ({
             )}
           </Td>
           <Td>{dollars(price)}</Td>
+          <Td>
+            <Gain>{percent(potentialWeeklyGain)}</Gain> |{" "}
+            <Loss>{percent(potentialWeeklyLoss)}</Loss>
+          </Td>
           <Td>{wins}</Td>
           <Td>{losses}</Td>
           <Td>{ties}</Td>
@@ -149,8 +163,18 @@ const TeamRow = ({
           <Td fontSize="xl">
             {name} · {wins}-{losses}
             {Boolean(ties) && `-${ties}`}
-            <br />[{tradingStatus} ·{" "}
-            <PlainButton onClick={onClickBuy}>Buy</PlainButton>]
+            <br />
+            {tradingStatus}
+            {!isLocked && (
+              <>
+                {" "}
+                · <PlainButton onClick={onClickBuy}>Buy</PlainButton>
+              </>
+            )}
+            <br />
+            Potential Gain: <Gain>{percent(potentialWeeklyGain)}</Gain>
+            <br />
+            Potential Loss: <Loss>{percent(potentialWeeklyLoss)}</Loss>
             {isAdmin && (
               <>
                 <br />

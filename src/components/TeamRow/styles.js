@@ -9,3 +9,13 @@ export const PlainButton = styled.button`
   color: blue;
   text-decoration: underline;
 `;
+
+export const Gain = styled.span`
+  color: var(--chakra-colors-green-600);
+  font-weight: 500;
+`;
+
+export const Loss = styled.span`
+  color: var(--chakra-colors-red-600);
+  font-weight: 500;
+`;

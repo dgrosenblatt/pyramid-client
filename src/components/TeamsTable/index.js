@@ -56,6 +56,7 @@ const TeamsTable = ({ teams, fetchTeams, setPrefillBuyTeamId, onBuyOpen }) => {
                   <TiArrowUnsorted />
                 </Flex>
               </Th>
+              <Th>Potential Return/Loss</Th>
               <Th>W</Th>
               <Th>L</Th>
               <Th>T</Th>
