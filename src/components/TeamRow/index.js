@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { Button, ButtonGroup, Tr, Td, useMediaQuery } from "@chakra-ui/react";
+import { Button, ButtonGroup, Heading, Tr, Td, useMediaQuery } from "@chakra-ui/react";
 import * as Api from "../../api";
 import { dollars, percent } from "../../utils";
 import Maybe from '../_shared/Maybe'
-import { PlainButton, RowButton, Gain, Loss } from "./styles";
+import { BuyButton, RowButton, Gain, Loss } from "./styles";
 
 const TeamRow = ({
   fetchTeams,
@@ -88,6 +88,8 @@ const TeamRow = ({
   };
 
   const tradingStatus = isLocked ? "Locked" : "Available";
+  const buyButtonText = isLocked ? tradingStatus : `Buy for ${dollars(price)}`;
+  const buttonColorScheme = isLocked ? "yellow" : "green";
 
   return (
     <>
@@ -163,23 +165,17 @@ const TeamRow = ({
         </Tr>
       ) : (
         <Tr>
-          <Td fontSize="xl">
-            {name} · {wins}-{losses}
-            {Boolean(ties) && `-${ties}`}
+          <Td fontSize="l">
+            <Heading size="sm" textAlign="center">{name}</Heading>
+            Record: {wins}-{losses}{Boolean(ties) && `-${ties}`}
             <br />
-            {tradingStatus}
-            {!isLocked && (
-              <>
-                {" "}
-                · <PlainButton onClick={onClickBuy}>Buy</PlainButton>
-              </>
-            )}
-
+            Current Price: {dollars(price)}
             <Maybe value={nextGame}><br />Next Game: {nextGame}</Maybe>
             <br />
             Potential Weekly Gain: <Gain>{percent(potentialWeeklyGain)}</Gain>
             <br />
             Potential Weekly Loss: <Loss>{percent(potentialWeeklyLoss)}</Loss>
+            <BuyButton disabled={isLocked} colorScheme={buttonColorScheme} onClick={onClickBuy}>{buyButtonText}</BuyButton>
             {isAdmin && (
               <>
                 <br />
@@ -246,7 +242,6 @@ const TeamRow = ({
               </>
             )}
           </Td>
-          <Td fontSize="xl">{dollars(price)}</Td>
         </Tr>
       )}
     </>

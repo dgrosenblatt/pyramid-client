@@ -64,8 +64,7 @@ const TeamsTable = ({ teams, fetchTeams, setPrefillBuyTeamId, onBuyOpen }) => {
             </Tr>
           ) : (
             <Tr>
-              <Th></Th>
-              <Th>Price</Th>
+              <Th textAlign="center">Teams</Th>
             </Tr>
           )}
         </Thead>

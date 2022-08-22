@@ -5,9 +5,14 @@ export const RowButton = styled(Button)`
   margin-left: 1em;
 `;
 
-export const PlainButton = styled.button`
-  color: blue;
-  text-decoration: underline;
+export const BuyButton = styled(Button)`
+  display: block;
+  height: unset;
+  margin-top: 8px;
+  padding-bottom: 8px;
+  padding-top: 8px;
+  white-space: unset;
+  width: 100%;
 `;
 
 export const Gain = styled.span`
