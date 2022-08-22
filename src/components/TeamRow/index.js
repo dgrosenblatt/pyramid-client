@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Button, ButtonGroup, Tr, Td, useMediaQuery } from "@chakra-ui/react";
 import * as Api from "../../api";
 import { dollars, percent } from "../../utils";
+import Maybe from '../_shared/Maybe'
 import { PlainButton, RowButton, Gain, Loss } from "./styles";
 
 const TeamRow = ({
@@ -22,6 +23,7 @@ const TeamRow = ({
     ties,
     potential_weekly_gain: potentialWeeklyGain,
     potential_weekly_loss: potentialWeeklyLoss,
+    next_game: nextGame,
   } = team;
 
   const [isLockLoading, setIsLockLoading] = useState(false);
@@ -101,6 +103,7 @@ const TeamRow = ({
             )}
           </Td>
           <Td>{dollars(price)}</Td>
+          <Td>{nextGame}</Td>
           <Td>
             <Gain>{percent(potentialWeeklyGain)}</Gain> |{" "}
             <Loss>{percent(potentialWeeklyLoss)}</Loss>
@@ -171,10 +174,12 @@ const TeamRow = ({
                 · <PlainButton onClick={onClickBuy}>Buy</PlainButton>
               </>
             )}
+
+            <Maybe value={nextGame}><br />Next Game: {nextGame}</Maybe>
             <br />
-            Potential Gain: <Gain>{percent(potentialWeeklyGain)}</Gain>
+            Potential Weekly Gain: <Gain>{percent(potentialWeeklyGain)}</Gain>
             <br />
-            Potential Loss: <Loss>{percent(potentialWeeklyLoss)}</Loss>
+            Potential Weekly Loss: <Loss>{percent(potentialWeeklyLoss)}</Loss>
             {isAdmin && (
               <>
                 <br />
