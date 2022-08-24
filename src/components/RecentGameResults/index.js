@@ -10,9 +10,10 @@ import {
   Tr,
   Th,
   Spinner,
+  useMediaQuery,
 } from "@chakra-ui/react";
 import * as Api from "../../api";
-import { dollars, percent } from "../../utils";
+import { dollars, percent, constants } from "../../utils";
 
 const getOutcomeColor = (gainLoss) => {
   if (gainLoss > 0) {
@@ -23,6 +24,7 @@ const getOutcomeColor = (gainLoss) => {
 };
 
 const RecentGameResults = () => {
+  const [isLargerThanMd] = useMediaQuery(constants.MEDIUM_SCREEN);
   const [gameResults, setGameResults] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
@@ -48,16 +50,28 @@ const RecentGameResults = () => {
       <Heading size="md">
         Recent Results {isLoading && <Spinner size="sm" />}
       </Heading>
-      <Table>
-        <Thead>
-          <Tr>
-            <Th>Team</Th>
-            <Th>Outcome</Th>
-            <Th>Gain/Loss $</Th>
-            <Th>Gain/Loss %</Th>
-            <Th>Dividend</Th>
-          </Tr>
-        </Thead>
+      <Table size="sm">
+        {isLargerThanMd ? (
+          <Thead>
+            <Tr>
+              <Th>Team</Th>
+              <Th>Outcome</Th>
+              <Th>Gain/Loss $</Th>
+              <Th>Gain/Loss %</Th>
+              <Th>Dividend</Th>
+            </Tr>
+          </Thead>
+        ) : (
+          <Thead>
+            <Tr>
+              <Th></Th>
+              <Th></Th>
+              <Th>$</Th>
+              <Th>%</Th>
+              <Th>Div</Th>
+            </Tr>
+          </Thead>
+        )}
         <Tbody>
           {!isLoading &&
             Boolean(gameResults.length) &&
