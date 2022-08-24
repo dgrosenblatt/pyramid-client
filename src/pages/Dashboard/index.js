@@ -3,6 +3,7 @@ import Profile from "../../components/Profile";
 import RecentGameResults from "../../components/RecentGameResults";
 import TeamsTable from "../../components/TeamsTable";
 import Welcome from "../../components/Welcome";
+import Maybe from "../../components/_shared/Maybe";
 
 const Dashboard = ({
   onSignUpOpen,
@@ -14,24 +15,20 @@ const Dashboard = ({
   onBuyOpen,
   onSellOpen,
 }) => {
-  const currentOrGuestUser = user ?? {
-    balance: 1000000,
-    holdings: [],
-    total_value: 1000000,
-    guest: true,
-    email: "you@example.com",
-  };
+  const isSignedIn = Boolean(user);
   return (
     <>
-      <Welcome />
+      <Welcome isSignedIn={isSignedIn} onSignUpOpen={onSignUpOpen} />
       <Standings currentUser={user} />
       <RecentGameResults />
-      <Profile
-        onSignUpOpen={onSignUpOpen}
-        user={currentOrGuestUser}
-        setPrefillSellHoldingId={setPrefillSellHoldingId}
-        onSellOpen={onSellOpen}
-      />
+      <Maybe value={user}>
+        <Profile
+          onSignUpOpen={onSignUpOpen}
+          user={user}
+          setPrefillSellHoldingId={setPrefillSellHoldingId}
+          onSellOpen={onSellOpen}
+        />
+      </Maybe>
       <TeamsTable
         onBuyOpen={onBuyOpen}
         teams={teams}

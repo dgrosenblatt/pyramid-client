@@ -34,21 +34,15 @@ const Profile = ({
   const [rankingIsLoading, setRankingIsLoading] = useState(false);
 
   useEffect(() => {
-    if (!user.guest) {
-      setRankingIsLoading(true);
+    setRankingIsLoading(true);
 
-      Api.getUserRanking()
-        .then((response) => {
-          setRanking(response.data.ranking);
-        })
-        .finally(() => {
-          setRankingIsLoading(false);
-        });
-    }
-
-    if (user.guest) {
-      setRanking(1);
-    }
+    Api.getUserRanking()
+      .then((response) => {
+        setRanking(response.data.ranking);
+      })
+      .finally(() => {
+        setRankingIsLoading(false);
+      });
   }, [user]);
 
   const { balance, holdings, total_value } = user;
@@ -133,13 +127,6 @@ const Profile = ({
               </>
             ))}
           </Tbody>
-          {user.guest && (
-            <TableCaption paddingTop="4">
-              <Button colorScheme="green" onClick={onSignUpOpen}>
-                Create an account to start trading!
-              </Button>
-            </TableCaption>
-          )}
           <TableCaption>
             {holdings.length
               ? "Current Positions"
@@ -170,15 +157,6 @@ const Profile = ({
               </>
             ))}
           </Tbody>
-          {user.guest && (
-            <TableCaption paddingTop="4">
-              <Button colorScheme="green" onClick={onSignUpOpen}>
-                {isLargerThanMd
-                  ? "Create an account to start trading!"
-                  : "Sign up to start trading!"}
-              </Button>
-            </TableCaption>
-          )}
           <TableCaption>
             {holdings.length
               ? "Current Positions"
