@@ -15,6 +15,12 @@ export const getStandings = () => {
   });
 };
 
+export const getRecentGameResults = () => {
+  return axios.get(`${baseUrl}/game_results/recent`, {
+    headers: { Authorization: getToken() },
+  });
+};
+
 export const lockTeam = (id) => {
   return axios.patch(`${baseUrl}/admin/teams/${id}/lock`, null, {
     headers: { Authorization: getToken() },

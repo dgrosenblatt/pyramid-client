@@ -17,10 +17,10 @@ import {
   Spinner,
   useMediaQuery,
 } from "@chakra-ui/react";
-import { dollars } from "../../utils";
+import { dollars, percent } from "../../utils";
 import * as Api from "../../api";
 import Maybe from "../_shared/Maybe";
-import { PlainButton } from "./styles";
+import { Gain, Loss, PlainButton } from "./styles";
 
 const Profile = ({
   onSignUpOpen,
@@ -116,7 +116,9 @@ const Profile = ({
                 <Tr key={holding.id}>
                   <Td>{holding.team.name}</Td>
                   <Td>{holding.quantity}</Td>
-                  <Td>{dollars(holding.team.price)}</Td>
+                  <Td>
+                    <Price holding={holding} />
+                  </Td>
                   <Td display="flex" justifyContent="space-between">
                     {dollars(holding.quantity * holding.team.price)}
                     <Button
@@ -186,6 +188,41 @@ const Profile = ({
       )}
     </Box>
   );
+};
+
+const Price = ({ holding }) => {
+  // going to replace with holding_game_result
+  const dollarAmount = dollars(holding.team.price);
+
+  const recentGameResult = holding.team.recent_game_results[0];
+
+  if (!recentGameResult) return dollarAmount;
+
+  const { price_change_amount, price_change_percent } = recentGameResult;
+
+  if (price_change_amount === 0) {
+    return dollarAmount;
+  } else if (price_change_amount > 0) {
+    return (
+      <>
+        {dollarAmount}
+        <Gain>
+          {" "}
+          (+{dollars(price_change_amount)}, {percent(price_change_percent)})
+        </Gain>
+      </>
+    );
+  } else {
+    return (
+      <>
+        {dollarAmount}
+        <Loss>
+          {" "}
+          ({dollars(price_change_amount)}, {percent(price_change_percent)})
+        </Loss>
+      </>
+    );
+  }
 };
 
 export default Profile;

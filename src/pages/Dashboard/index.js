@@ -1,5 +1,6 @@
 import Standings from "../../components/Standings";
 import Profile from "../../components/Profile";
+import RecentGameResults from "../../components/RecentGameResults";
 import TeamsTable from "../../components/TeamsTable";
 import Welcome from "../../components/Welcome";
 
@@ -24,6 +25,7 @@ const Dashboard = ({
     <>
       <Welcome />
       <Standings currentUser={user} />
+      <RecentGameResults />
       <Profile
         onSignUpOpen={onSignUpOpen}
         user={currentOrGuestUser}

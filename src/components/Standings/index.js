@@ -38,8 +38,8 @@ const Standings = ({ currentUser }) => {
       marginBottom="1rem"
       padding="2"
     >
-      <Heading size="md">Season 1 Standings</Heading>
-      <Heading size="sm">Division G</Heading>
+      <Heading size="md">2022 Standings</Heading>
+      <Heading size="sm">Global</Heading>
       <Table size="sm">
         <Thead>
           <Tr>
