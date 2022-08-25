@@ -1,3 +1,5 @@
+import { format } from "date-fns";
+
 export const dollars = (number) => {
   return new Intl.NumberFormat("us", {
     style: "currency",
@@ -12,6 +14,11 @@ export const percent = (decimal) => {
 
 export const publicName = ({ id, name }) => {
   return name || `Player ${id * 7}`;
+};
+
+export const gameTime = (dateISO8601) => {
+  const dt = new Date(dateISO8601);
+  return format(dt, "EEE p");
 };
 
 export * as constants from "./constants";

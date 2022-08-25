@@ -8,7 +8,7 @@ import {
   useMediaQuery,
 } from "@chakra-ui/react";
 import * as Api from "../../api";
-import { dollars, percent } from "../../utils";
+import { dollars, gameTime, percent } from "../../utils";
 import Maybe from "../_shared/Maybe";
 import { BuyButton, RowButton, Gain, Loss } from "./styles";
 
@@ -23,6 +23,7 @@ const TeamRow = ({
   const {
     id,
     is_locked: isLocked,
+    locked_at: lockedAt,
     name,
     price,
     wins,
@@ -112,7 +113,11 @@ const TeamRow = ({
             )}
           </Td>
           <Td>{dollars(price)}</Td>
-          <Td>{nextGame}</Td>
+          <Td>
+            {nextGame}
+            <br />
+            {gameTime(lockedAt)}
+          </Td>
           <Td>
             <Gain>{percent(potentialWeeklyGain)}</Gain> |{" "}
             <Loss>{percent(potentialWeeklyLoss)}</Loss>
@@ -182,7 +187,7 @@ const TeamRow = ({
             Current Price: {dollars(price)}
             <Maybe value={nextGame}>
               <br />
-              Next Game: {nextGame}
+              Next: {nextGame}, {gameTime(lockedAt)}
             </Maybe>
             <br />
             Potential Weekly Gain: <Gain>{percent(potentialWeeklyGain)}</Gain>
