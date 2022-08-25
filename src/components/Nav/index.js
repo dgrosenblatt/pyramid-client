@@ -5,7 +5,14 @@ import { FaCashRegister, FaHome } from "react-icons/fa";
 import { GiReceiveMoney } from "react-icons/gi";
 import { AiOutlinePlusSquare, AiOutlineLogin } from "react-icons/ai";
 import { VscSignOut } from "react-icons/vsc";
-import { LinkBody, LinkBodyText, NavHeading, NavButton } from "./styles";
+import {
+  LinkBody,
+  LinkBodyText,
+  NavHeading,
+  NavButton,
+  NavBox,
+} from "./styles";
+import Logo from "../_design_system/Logo";
 
 const Nav = ({
   user,
@@ -29,9 +36,9 @@ const Nav = ({
   };
 
   return (
-    <nav>
+    <NavBox>
       <NavHeading size="md" marginTop={["2", "2", "2", "0"]}>
-        💸 Sportfolio
+        <Logo />
       </NavHeading>
       <Link to="/">
         <LinkBody>
@@ -84,7 +91,7 @@ const Nav = ({
           </NavButton>
         </>
       )}
-    </nav>
+    </NavBox>
   );
 };
 

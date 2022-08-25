@@ -9,20 +9,21 @@ import {
   Flex,
 } from "@chakra-ui/react";
 import { GiHamburgerMenu } from "react-icons/gi";
+import Logo from "../_design_system/Logo";
 
 const MobileMenuDrawer = ({ children }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
-    <Box backgroundColor="green.100">
+    <Box backgroundColor="gray.600">
       <Flex
-        fontSize="24px"
+        fontSize="20px"
         justifyContent="space-between"
         alignItems="center"
         padding="0.5em"
       >
-        <Box>💸</Box>
-        <GiHamburgerMenu onClick={onOpen} />
+        <Logo />
+        <GiHamburgerMenu color="whitesmoke" onClick={onOpen} />
       </Flex>
       <Drawer
         isOpen={isOpen}
@@ -31,8 +32,8 @@ const MobileMenuDrawer = ({ children }) => {
         blockScrollOnMount={false}
       >
         <DrawerOverlay />
-        <DrawerContent>
-          <DrawerCloseButton />
+        <DrawerContent backgroundColor="gray.600">
+          <DrawerCloseButton color="white" />
           <DrawerBody onClick={onClose}>{children}</DrawerBody>
         </DrawerContent>
       </Drawer>

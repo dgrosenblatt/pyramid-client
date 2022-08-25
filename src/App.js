@@ -87,7 +87,7 @@ function App() {
             direction={["column", "column", "column", "row"]}
           >
             {isLargerThanSm ? (
-              <Box w="200px" padding="24px">
+              <Box w="200px" padding="24px" backgroundColor="gray.600">
                 <Nav
                   user={user}
                   setUser={setUser}
