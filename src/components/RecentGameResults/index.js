@@ -66,8 +66,7 @@ const RecentGameResults = () => {
             <Tr>
               <Th></Th>
               <Th></Th>
-              <Th>$</Th>
-              <Th>%</Th>
+              <Th>$/%</Th>
               <Th>Div</Th>
             </Tr>
           </Thead>
@@ -79,12 +78,21 @@ const RecentGameResults = () => {
               <Tr key={gameResult.id}>
                 <Td>{gameResult.team.abbreviation}</Td>
                 <Td>{gameResult.result}</Td>
-                <Td color={getOutcomeColor(gameResult.price_change_amount)}>
-                  {dollars(gameResult.price_change_amount)}
-                </Td>
-                <Td color={getOutcomeColor(gameResult.price_change_amount)}>
-                  {percent(gameResult.price_change_percent)}
-                </Td>
+                {isLargerThanMd ? (
+                  <>
+                    <Td color={getOutcomeColor(gameResult.price_change_amount)}>
+                      {dollars(gameResult.price_change_amount)}
+                    </Td>
+                    <Td color={getOutcomeColor(gameResult.price_change_amount)}>
+                      {percent(gameResult.price_change_percent)}
+                    </Td>
+                  </>
+                ) : (
+                  <Td color={getOutcomeColor(gameResult.price_change_amount)}>
+                    {dollars(gameResult.price_change_amount)} /{" "}
+                    {percent(gameResult.price_change_percent)}
+                  </Td>
+                )}
                 <Td color="green.600">
                   {gameResult.result === "WIN" && "$100"}
                 </Td>
