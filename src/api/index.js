@@ -71,6 +71,12 @@ export const getUserRanking = () => {
   });
 };
 
+export const getUserBalanceTransactions = () => {
+  return axios.get(`${baseUrl}/current_user/balance_transactions`, {
+    headers: { Authorization: getToken() },
+  });
+};
+
 export const createHolding = ({ quantity, teamId }) => {
   return axios.post(
     `${baseUrl}/holdings`,

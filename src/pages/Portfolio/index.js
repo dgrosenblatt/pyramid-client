@@ -1,6 +1,18 @@
-import { Box, Heading, Spinner } from "@chakra-ui/react";
+import { useState, useEffect } from "react";
+import {
+  Box,
+  Heading,
+  Spinner,
+  Table,
+  Td,
+  Thead,
+  Tbody,
+  Tr,
+  Th,
+} from "@chakra-ui/react";
 import { PieChart, Pie, Tooltip } from "recharts";
 import { dollars } from "../../utils";
+import * as Api from "../../api";
 
 const pieChartColors = [
   "var(--chakra-colors-red-300)",
@@ -14,6 +26,14 @@ const pieChartColors = [
 ];
 
 const Portfolio = ({ user }) => {
+  const [balanceTransactions, setBalanceTransactions] = useState([]);
+
+  useEffect(() => {
+    Api.getUserBalanceTransactions().then((response) => {
+      setBalanceTransactions(response.data);
+    });
+  }, [user]);
+
   if (!user) return <Spinner />;
 
   const holdingData = user.holdings.map((holding, index) => {
@@ -41,6 +61,28 @@ const Portfolio = ({ user }) => {
         padding="2"
       >
         <Heading textAlign="center">My Portfolio</Heading>
+        <Table variant="striped" colorScheme="gray">
+          <Thead>
+            <Tr>
+              <Th>Date</Th>
+              <Th>Event</Th>
+              <Th>Amount</Th>
+              <Th>Notes</Th>
+            </Tr>
+          </Thead>
+          <Tbody>
+            {balanceTransactions.map((balanceTransaction) => (
+              <>
+                <Tr key={balanceTransaction.id}>
+                  <Td>{balanceTransaction.created_at}</Td>
+                  <Td>{balanceTransaction.event}</Td>
+                  <Td>{balanceTransaction.amount}</Td>
+                  <Td>{balanceTransaction.notes}</Td>
+                </Tr>
+              </>
+            ))}
+          </Tbody>
+        </Table>
         <PieChart width={1000} height={450}>
           <Pie
             label={(entry) => `${entry.name} · ${dollars(entry.value)}`}
