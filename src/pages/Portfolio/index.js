@@ -9,23 +9,17 @@ import {
   Tbody,
   Tr,
   Th,
+  useMediaQuery,
 } from "@chakra-ui/react";
-import { PieChart, Pie, Tooltip } from "recharts";
-import { dollars } from "../../utils";
+import Profile from "../../components/Profile";
+import { MEDIUM_SCREEN } from "../../utils/constants";
+import { dollars, transactionDate } from "../../utils";
 import * as Api from "../../api";
+import Maybe from "../../components/_shared/Maybe";
 
-const pieChartColors = [
-  "var(--chakra-colors-red-300)",
-  "var(--chakra-colors-blue-300)",
-  "var(--chakra-colors-green-300)",
-  "var(--chakra-colors-yellow-400)",
-  "var(--chakra-colors-orange-300)",
-  "var(--chakra-colors-purple-300)",
-  "var(--chakra-colors-pink-300)",
-  "var(--chakra-colors-teal-300)",
-];
+const Portfolio = ({ onSellOpen, setPrefillSellHoldingId, user }) => {
+  const [isLargerThanMd] = useMediaQuery(MEDIUM_SCREEN);
 
-const Portfolio = ({ user }) => {
   const [balanceTransactions, setBalanceTransactions] = useState([]);
 
   useEffect(() => {
@@ -36,21 +30,6 @@ const Portfolio = ({ user }) => {
 
   if (!user) return <Spinner />;
 
-  const holdingData = user.holdings.map((holding, index) => {
-    const { name } = holding.team;
-    const value = holding.quantity * holding.team.price;
-    return { name, value, fill: pieChartColors[index] };
-  });
-
-  const pieData = [
-    ...holdingData,
-    {
-      name: "Cash",
-      value: user.balance,
-      fill: pieChartColors[holdingData.length],
-    },
-  ];
-
   return (
     <Box>
       <Box
@@ -60,39 +39,66 @@ const Portfolio = ({ user }) => {
         marginBottom="1rem"
         padding="2"
       >
-        <Heading textAlign="center">My Portfolio</Heading>
-        <Table variant="striped" colorScheme="gray">
-          <Thead>
-            <Tr>
-              <Th>Date</Th>
-              <Th>Event</Th>
-              <Th>Amount</Th>
-              <Th>Notes</Th>
-            </Tr>
-          </Thead>
-          <Tbody>
-            {balanceTransactions.map((balanceTransaction) => (
-              <>
-                <Tr key={balanceTransaction.id}>
-                  <Td>{balanceTransaction.created_at}</Td>
-                  <Td>{balanceTransaction.event}</Td>
-                  <Td>{balanceTransaction.amount}</Td>
-                  <Td>{balanceTransaction.notes}</Td>
+        <Heading textAlign="center" marginBottom={"1em"}>
+          Portfolio Overview
+        </Heading>
+        <Profile
+          onSellOpen={onSellOpen}
+          setPrefillSellHoldingId={setPrefillSellHoldingId}
+          user={user}
+        />
+        <Box
+          bgColor="white"
+          borderWidth="1px"
+          borderRadius="lg"
+          marginTop="2"
+          marginBottom="1rem"
+          padding="2"
+        >
+          <Heading size="md" marginBottom="1em">
+            Transactions
+          </Heading>
+          <Table variant="striped" colorScheme="gray">
+            {isLargerThanMd && (
+              <Thead>
+                <Tr>
+                  <Th>Date</Th>
+                  <Th>Event</Th>
+                  <Th>Amount</Th>
+                  <Th>Notes</Th>
                 </Tr>
-              </>
-            ))}
-          </Tbody>
-        </Table>
-        <PieChart width={1000} height={450}>
-          <Pie
-            label={(entry) => `${entry.name} · ${dollars(entry.value)}`}
-            data={pieData}
-            dataKey="value"
-            nameKey="name"
-          >
-            <Tooltip />
-          </Pie>
-        </PieChart>
+              </Thead>
+            )}
+            <Tbody>
+              {balanceTransactions.map((balanceTransaction) =>
+                isLargerThanMd ? (
+                  <>
+                    <Tr key={balanceTransaction.id}>
+                      <Td>{transactionDate(balanceTransaction.created_at)}</Td>
+                      <Td>{balanceTransaction.event}</Td>
+                      <Td>{dollars(balanceTransaction.amount)}</Td>
+                      <Td>{balanceTransaction.notes}</Td>
+                    </Tr>
+                  </>
+                ) : (
+                  <Tr key={balanceTransaction.id}>
+                    <Td>
+                      Date: {transactionDate(balanceTransaction.created_at)}
+                      <br />
+                      Event: {balanceTransaction.event}
+                      <br />
+                      Amount: {dollars(balanceTransaction.amount)}
+                      <br />
+                      <Maybe value={balanceTransaction.notes}>
+                        Notes: {balanceTransaction.notes}
+                      </Maybe>
+                    </Td>
+                  </Tr>
+                )
+              )}
+            </Tbody>
+          </Table>
+        </Box>
       </Box>
     </Box>
   );

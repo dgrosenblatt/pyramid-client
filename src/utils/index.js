@@ -21,4 +21,9 @@ export const gameTime = (dateISO8601) => {
   return format(dt, "EEE p");
 };
 
+export const transactionDate = (dateISO8601) => {
+  const dt = new Date(dateISO8601);
+  return format(dt, "MMM d");
+};
+
 export * as constants from "./constants";

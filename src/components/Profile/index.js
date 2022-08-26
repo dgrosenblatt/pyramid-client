@@ -17,18 +17,14 @@ import {
   Spinner,
   useMediaQuery,
 } from "@chakra-ui/react";
+import { MEDIUM_SCREEN } from "../../utils/constants";
 import { dollars, percent } from "../../utils";
 import * as Api from "../../api";
 import Maybe from "../_shared/Maybe";
 import { Gain, Loss, PlainButton } from "./styles";
 
-const Profile = ({
-  onSignUpOpen,
-  user,
-  setPrefillSellHoldingId,
-  onSellOpen,
-}) => {
-  const [isLargerThanMd] = useMediaQuery("(min-width: 48em)");
+const Profile = ({ user, setPrefillSellHoldingId, onSellOpen }) => {
+  const [isLargerThanMd] = useMediaQuery(MEDIUM_SCREEN);
 
   const [ranking, setRanking] = useState(null);
   const [rankingIsLoading, setRankingIsLoading] = useState(false);
@@ -57,7 +53,7 @@ const Profile = ({
     onSellOpen();
   };
 
-  const title = "Your Portfolio";
+  const title = "Summary";
 
   return (
     <Box

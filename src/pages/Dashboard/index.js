@@ -23,7 +23,6 @@ const Dashboard = ({
       <RecentGameResults />
       <Maybe value={user}>
         <Profile
-          onSignUpOpen={onSignUpOpen}
           user={user}
           setPrefillSellHoldingId={setPrefillSellHoldingId}
           onSellOpen={onSellOpen}

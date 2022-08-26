@@ -119,7 +119,16 @@ function App() {
                   path="/password/edit"
                   element={<PasswordForm setUser={setUser} />}
                 />
-                <Route path="/portfolio" element={<Portfolio user={user} />} />
+                <Route
+                  path="/portfolio"
+                  element={
+                    <Portfolio
+                      user={user}
+                      setPrefillSellHoldingId={setPrefillSellHoldingId}
+                      onSellOpen={onSellOpen}
+                    />
+                  }
+                />
                 {user?.admin && (
                   <Route
                     path="/admin"

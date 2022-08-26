@@ -5,6 +5,7 @@ import { FaCashRegister, FaHome } from "react-icons/fa";
 import { GiReceiveMoney } from "react-icons/gi";
 import { AiOutlinePlusSquare, AiOutlineLogin } from "react-icons/ai";
 import { VscSignOut } from "react-icons/vsc";
+import { BiLineChart } from "react-icons/bi";
 import {
   LinkBody,
   LinkBodyText,
@@ -48,6 +49,12 @@ const Nav = ({
       </Link>
       {user ? (
         <>
+          <Link to="/portfolio">
+            <LinkBody>
+              <BiLineChart />
+              <LinkBodyText>Portfolio</LinkBodyText>
+            </LinkBody>
+          </Link>
           <NavButton onClick={onBuyOpen}>
             <LinkBody>
               <FaCashRegister />
