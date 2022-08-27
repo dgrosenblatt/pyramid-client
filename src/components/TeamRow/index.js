@@ -114,9 +114,11 @@ const TeamRow = ({
           </Td>
           <Td>{dollars(price)}</Td>
           <Td>
-            {nextGame}
-            <br />
-            {gameTime(lockedAt)}
+            <Maybe value={nextGame}>
+              {nextGame}
+              <br />
+              {gameTime(lockedAt)}
+            </Maybe>
           </Td>
           <Td>
             <Gain>{percent(potentialWeeklyGain)}</Gain> |{" "}
