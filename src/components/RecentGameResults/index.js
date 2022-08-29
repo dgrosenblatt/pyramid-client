@@ -11,9 +11,11 @@ import {
   Th,
   Spinner,
   useMediaQuery,
+  Text,
 } from "@chakra-ui/react";
 import * as Api from "../../api";
-import { dollars, percent, constants } from "../../utils";
+import { dollars, percent, constants, gameTime } from "../../utils";
+import Maybe from "../_shared/Maybe";
 
 const getOutcomeColor = (gainLoss) => {
   if (gainLoss > 0) {
@@ -39,6 +41,8 @@ const RecentGameResults = () => {
       });
   }, []);
 
+  const scoresUpdatedAt = gameResults[0]?.created_at
+
   return (
     <Box
       bgColor="white"
@@ -50,6 +54,9 @@ const RecentGameResults = () => {
       <Heading size="md">
         Recent Results {isLoading && <Spinner size="sm" />}
       </Heading>
+      <Maybe value={scoresUpdatedAt}>
+        <Text marginBottom="1em">Last Updated: {gameTime(scoresUpdatedAt)}</Text>
+      </Maybe>
       <Table size="sm">
         {isLargerThanMd ? (
           <Thead>
