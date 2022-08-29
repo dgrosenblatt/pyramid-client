@@ -55,7 +55,7 @@ const RecentGameResults = () => {
         Recent Results {isLoading && <Spinner size="sm" />}
       </Heading>
       <Maybe value={scoresUpdatedAt}>
-        <Text marginBottom="1em">Last Updated: {gameTime(scoresUpdatedAt)}</Text>
+        <Text marginBottom="1em">Showing outcomes from the past 24h. Last Updated: {gameTime(scoresUpdatedAt)}</Text>
       </Maybe>
       <Table size="sm">
         {isLargerThanMd ? (
@@ -73,7 +73,7 @@ const RecentGameResults = () => {
             <Tr>
               <Th></Th>
               <Th></Th>
-              <Th>$/%</Th>
+              <Th>+/-</Th>
               <Th>Div</Th>
             </Tr>
           </Thead>
@@ -96,8 +96,7 @@ const RecentGameResults = () => {
                   </>
                 ) : (
                   <Td color={getOutcomeColor(gameResult.price_change_amount)}>
-                    {dollars(gameResult.price_change_amount)} /{" "}
-                    {percent(gameResult.price_change_percent)}
+                    {dollars(gameResult.price_change_amount)} ({percent(gameResult.price_change_percent)})
                   </Td>
                 )}
                 <Td color="green.600">
