@@ -94,7 +94,7 @@ const RecentGameResults = () => {
                   </Td>
                 )}
                 <Td color="green.600">
-                  {gameResult.result === "WIN" && "$100"}
+                  {gameResult.result === "WIN" && (dollars(100 + gameResult.margin_of_victory))}
                 </Td>
               </Tr>
             ))}
