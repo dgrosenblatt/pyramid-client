@@ -48,12 +48,12 @@ const BuyForm = ({
     Api.createHolding({ quantity, teamId: teamOption })
       .then(({ data }) => {
         const { team } = data;
-        const { price, name } = team;
+        const { price, abbreviation } = team;
 
         fetchUser();
         toast({
           title: `Success`,
-          description: `Purchased ${quantity} ${name} @ ${dollars(
+          description: `Purchased ${quantity} ${abbreviation} @ ${dollars(
             price
           )}, Total: ${dollars(quantity * price)}`,
           status: "success",
@@ -84,8 +84,8 @@ const BuyForm = ({
   const maxShares = Math.floor(balance / selectedTeam.price);
 
   const buttonText = selectedTeam.is_locked
-    ? `${selectedTeam.name} is currently locked`
-    : `Buy ${quantity} ${shareText} of ${selectedTeam.name} for ${dollars(
+    ? `${selectedTeam.abbreviation} is currently locked`
+    : `Buy ${quantity} ${shareText} of ${selectedTeam.abbreviation} for ${dollars(
         quantity * selectedTeam.price
       )}`;
 
@@ -102,7 +102,7 @@ const BuyForm = ({
           <Select value={teamOption} onChange={onTeamOptionChange}>
             {teams.map((team) => (
               <option key={team.id} value={team.id}>
-                {team.name}
+                {team.abbreviation}
               </option>
             ))}
           </Select>

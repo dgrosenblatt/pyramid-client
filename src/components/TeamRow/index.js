@@ -24,7 +24,7 @@ const TeamRow = ({
     id,
     is_locked: isLocked,
     locked_at: lockedAt,
-    name,
+    abbreviation,
     price,
     wins,
     losses,
@@ -103,7 +103,7 @@ const TeamRow = ({
     <>
       {isLargerThanMd ? (
         <Tr>
-          <Td>{name}</Td>
+          <Td>{abbreviation}</Td>
           <Td>
             {tradingStatus}
             {!isLocked && (
@@ -181,7 +181,7 @@ const TeamRow = ({
         <Tr>
           <Td fontSize="l">
             <Heading size="sm" textAlign="center">
-              {name}
+              {abbreviation}
             </Heading>
             Record: {wins}-{losses}
             {Boolean(ties) && `-${ties}`}

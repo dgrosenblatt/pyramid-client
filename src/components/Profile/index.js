@@ -104,7 +104,7 @@ const Profile = ({ user, setPrefillSellHoldingId, onSellOpen }) => {
             {holdings.map((holding) => (
               <>
                 <Tr key={holding.id}>
-                  <Td>{holding.team.name}</Td>
+                  <Td>{holding.team.abbreviation}</Td>
                   <Td>{holding.quantity}</Td>
                   <Td>
                     <Price holding={holding} />

@@ -54,7 +54,7 @@ const SellForm = ({
         fetchUser();
         toast({
           title: `Success`,
-          description: `Sold ${quantity} ${data.team.name} @ ${dollars(
+          description: `Sold ${quantity} ${data.team.abbreviation} @ ${dollars(
             data.team.price
           )}, Total: ${dollars(quantity * data.team.price)}`,
           status: "success",
@@ -83,9 +83,9 @@ const SellForm = ({
     maxShares = selectedHolding.quantity;
 
     buttonText = selectedHolding.is_locked
-      ? `${selectedHolding.team.name} is currently locked`
+      ? `${selectedHolding.team.abbreviation} is currently locked`
       : `Sell ${quantity} ${shareText} of ${
-          selectedHolding.team.name
+          selectedHolding.team.abbreviation
         } for ${dollars(quantity * selectedHolding.team.price)}`;
 
     buttonColor = selectedHolding.team.is_locked ? "gray" : "red";
@@ -106,7 +106,7 @@ const SellForm = ({
           <Select value={holdingOption} onChange={onTeamOptionChange}>
             {holdings.map((holding) => (
               <option key={holding.id} value={holding.id}>
-                {holding.team.name}
+                {holding.team.abbreviation}
               </option>
             ))}
           </Select>

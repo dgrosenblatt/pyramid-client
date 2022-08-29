@@ -87,7 +87,7 @@ const AdminTeamsTable = ({ teams, fetchTeams }) => {
           {teams.map((team) => (
             // deal with no team?
             <Tr key={team.id}>
-              <Td>{team.name}</Td>
+              <Td>{team.abbreviation}</Td>
               <Td>
                 <DatePicker
                   placeholderText="Set a lock time"
