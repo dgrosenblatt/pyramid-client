@@ -28,7 +28,7 @@ import Portfolio from "./pages/Portfolio";
 import "./App.css";
 
 function App() {
-  const [isLargerThanSm] = useMediaQuery("(min-width: 30em)");
+  const [isLargerThanMd] = useMediaQuery("(min-width: 60em)");
 
   const [teams, setTeams] = useState([]);
   const fetchTeams = () => {
@@ -86,7 +86,7 @@ function App() {
             minHeight="100vh"
             direction={["column", "column", "column", "row"]}
           >
-            {isLargerThanSm ? (
+            {isLargerThanMd ? (
               <Box w="200px" padding="24px" backgroundColor="gray.600">
                 <Nav
                   user={user}
