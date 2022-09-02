@@ -37,11 +37,11 @@ const Welcome = ({ isSignedIn, onSignUpOpen }) => {
               Start with $10,000 of fake money to buy and sell stocks
             </ListItem>
             <ListItem>
-              Stock prices automatically change to reflect a team's win/loss
-              record (.500 record means the stock is worth $500)
+              Prices automatically change to reflect a team's win/loss
+              record, with a minimum of $100 (A .500 record means the stock is worth $500)
             </ListItem>
             <ListItem>
-              Shareholders receive a $100 per share dividend for wins
+              Wins pay shareholders $100 + Margin of Victory per share
             </ListItem>
             <ListItem>Trading locks for teams with a game in progress</ListItem>
             <ListItem>
