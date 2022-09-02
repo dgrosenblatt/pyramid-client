@@ -58,9 +58,7 @@ const TeamsTable = ({ teams, fetchTeams, setPrefillBuyTeamId, onBuyOpen }) => {
               </Th>
               <Th>Next</Th>
               <Th>Potential Return/Loss</Th>
-              <Th>W</Th>
-              <Th>L</Th>
-              <Th>T</Th>
+              <Th>Record</Th>
             </Tr>
           ) : (
             <Tr>

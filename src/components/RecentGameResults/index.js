@@ -52,7 +52,7 @@ const RecentGameResults = () => {
       padding="2"
     >
       <Heading size="md">
-        Recent Results {isLoading && <Spinner size="sm" />}
+        Recent Outcomes {isLoading && <Spinner size="sm" />}
       </Heading>
       <Maybe value={scoresUpdatedAt}>
         <Text marginBottom="1em">Showing outcomes from the past 24h. Last Updated: {gameTime(scoresUpdatedAt)}</Text>
