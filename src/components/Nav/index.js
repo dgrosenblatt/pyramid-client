@@ -3,9 +3,9 @@ import { useToast } from "@chakra-ui/react";
 import { BsFillGearFill } from "react-icons/bs";
 import { FaCashRegister, FaHome } from "react-icons/fa";
 import { GiReceiveMoney } from "react-icons/gi";
-import { AiOutlinePlusSquare, AiOutlineLogin } from "react-icons/ai";
+import { AiOutlinePlusSquare, AiOutlineLogin, AiOutlineBank } from "react-icons/ai";
 import { VscSignOut } from "react-icons/vsc";
-import { BiLineChart } from "react-icons/bi";
+import { BiLineChart, BiCreditCard } from "react-icons/bi";
 import {
   LinkBody,
   LinkBodyText,
@@ -22,6 +22,8 @@ const Nav = ({
   onBuyOpen,
   onSellOpen,
   onLogInOpen,
+  onBorrowOpen,
+  onRepayOpen,
 }) => {
   const toast = useToast();
 
@@ -65,6 +67,18 @@ const Nav = ({
             <LinkBody>
               <GiReceiveMoney />
               <LinkBodyText>Sell</LinkBodyText>
+            </LinkBody>
+          </NavButton>
+          <NavButton onClick={onBorrowOpen}>
+            <LinkBody>
+              <BiCreditCard />
+              <LinkBodyText>Margin</LinkBodyText>
+            </LinkBody>
+          </NavButton>
+          <NavButton onClick={onRepayOpen}>
+            <LinkBody>
+              <AiOutlineBank />
+              <LinkBodyText>Repayment</LinkBodyText>
             </LinkBody>
           </NavButton>
           <NavButton onClick={onSignOut}>

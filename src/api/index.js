@@ -103,6 +103,19 @@ export const createUser = ({ email, password, name }) => {
   );
 };
 
+export const addUserMarginLoan = (amount) => {
+  return axios.patch(
+    `${baseUrl}/current_user/margin_loan`,
+    JSON.stringify({ amount }),
+    {
+      headers: {
+        Authorization: getToken(),
+        "Content-Type": "application/json",
+      }
+    },
+  );
+};
+
 export const createSession = ({ email, password }) => {
   return axios.post(
     `${baseUrl}/login`,

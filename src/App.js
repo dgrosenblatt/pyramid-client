@@ -19,6 +19,7 @@ import AccountForm from "./components/AccountForm";
 import PasswordForm from "./components/PasswordForm";
 import SessionForm from "./components/SessionForm";
 import BuyForm from "./components/BuyForm";
+import BorrowForm from "./components/BorrowForm";
 import MobileMenuDrawer from "./components/MobileMenuDrawer";
 import Nav from "./components/Nav";
 import SellForm from "./components/SellForm";
@@ -64,6 +65,16 @@ function App() {
     onClose: onSellClose,
   } = useDisclosure();
   const {
+    isOpen: isBorrowOpen,
+    onOpen: onBorrowOpen,
+    onClose: onBorrowClose,
+  } = useDisclosure();
+  const {
+    isOpen: isRepayOpen,
+    onOpen: onRepayOpen,
+    onClose: onRepayClose,
+  } = useDisclosure();
+  const {
     isOpen: isSignUpOpen,
     onOpen: onSignUpOpen,
     onClose: onSignUpClose,
@@ -95,6 +106,8 @@ function App() {
                   onBuyOpen={onBuyOpen}
                   onSellOpen={onSellOpen}
                   onLogInOpen={onLogInOpen}
+                  onBorrowOpen={onBorrowOpen}
+                  onRepayOpen={onRepayOpen}
                 />
               </Box>
             ) : (
@@ -106,6 +119,8 @@ function App() {
                   onBuyOpen={onBuyOpen}
                   onSellOpen={onSellOpen}
                   onLogInOpen={onLogInOpen}
+                  onBorrowOpen={onBorrowOpen}
+                  onRepayOpen={onRepayOpen}
                 />
               </MobileMenuDrawer>
             )}
@@ -200,6 +215,49 @@ function App() {
                   prefillSellHoldingId={prefillSellHoldingId}
                   setPrefillSellHoldingId={setPrefillSellHoldingId}
                 />
+              </DrawerBody>
+            </DrawerContent>
+          </Drawer>
+
+          <Drawer
+            isOpen={isBorrowOpen}
+            placement="right"
+            onClose={onBorrowClose}
+            blockScrollOnMount={false}
+          >
+            <DrawerOverlay />
+            <DrawerContent>
+              <DrawerCloseButton />
+              <DrawerHeader>Borrow on Margin</DrawerHeader>
+              <DrawerBody>
+                <BorrowForm
+                  user={user}
+                  fetchUser={fetchUser}
+                  onBorrowClose={onBorrowClose}
+                />
+              </DrawerBody>
+            </DrawerContent>
+          </Drawer>
+
+          <Drawer
+            isOpen={isRepayOpen}
+            placement="right"
+            onClose={onRepayClose}
+            blockScrollOnMount={false}
+          >
+            <DrawerOverlay />
+            <DrawerContent>
+              <DrawerCloseButton />
+              <DrawerHeader>Repay Margin</DrawerHeader>
+              <DrawerBody>
+                {/* <BuyForm
+                  user={user}
+                  teams={teams}
+                  fetchUser={fetchUser}
+                  onBuyClose={onBuyClose}
+                  prefillBuyTeamId={prefillBuyTeamId}
+                  setPrefillBuyTeamId={setPrefillBuyTeamId}
+                /> */}
               </DrawerBody>
             </DrawerContent>
           </Drawer>

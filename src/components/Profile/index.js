@@ -7,6 +7,7 @@ import {
   StatGroup,
   StatLabel,
   StatNumber,
+  Text,
   Table,
   Td,
   Thead,
@@ -21,7 +22,8 @@ import { MEDIUM_SCREEN } from "../../utils/constants";
 import { dollars, percent } from "../../utils";
 import * as Api from "../../api";
 import Maybe from "../_shared/Maybe";
-import { Gain, Loss, PlainButton } from "./styles";
+import { Gain, Loss, Margin, PlainButton } from "./styles";
+import InlineLabel from "../_design_system/InlineLabel";
 
 const Profile = ({ user, setPrefillSellHoldingId, onSellOpen }) => {
   const [isLargerThanMd] = useMediaQuery(MEDIUM_SCREEN);
@@ -41,7 +43,7 @@ const Profile = ({ user, setPrefillSellHoldingId, onSellOpen }) => {
       });
   }, [user]);
 
-  const { balance, holdings, total_value } = user;
+  const { balance, holdings, total_value, margin } = user;
 
   const holdingsValue = holdings.reduce((acc, holding) => {
     const holdingValue = holding.quantity * holding.team.price;
@@ -64,30 +66,32 @@ const Profile = ({ user, setPrefillSellHoldingId, onSellOpen }) => {
       marginBottom="1rem"
       padding="2"
     >
-      <Heading size="md">{title}</Heading>
-      <Heading size="sm">
-        {user.email} <Maybe value={user.name}>[{user.name}]</Maybe>
-      </Heading>
+      <Heading size="md" marginBottom="0.5em">{title}</Heading>
+      <Text marginBottom="1em">
+        <InlineLabel>Global ranking:</InlineLabel> {rankingIsLoading ? <Spinner /> : ranking}
+      </Text>
       <StatGroup
         flexDirection={["column", "column", "column", "row"]}
         flexWrap="wrap"
         height={["130px", "130px", "130px", "auto"]}
       >
         <Stat>
-          <StatLabel>Current Ranking</StatLabel>
-          <StatNumber>{rankingIsLoading ? <Spinner /> : ranking}</StatNumber>
-        </Stat>
-        <Stat>
-          <StatLabel>Total Portfolio Value</StatLabel>
+          <StatLabel>Total Value</StatLabel>
           <StatNumber>{dollars(total_value)}</StatNumber>
         </Stat>
         <Stat>
-          <StatLabel>Available cash</StatLabel>
+          <StatLabel>Cash</StatLabel>
           <StatNumber>{dollars(balance)}</StatNumber>
         </Stat>
         <Stat>
-          <StatLabel>Holdings value</StatLabel>
+          <StatLabel>Holdings</StatLabel>
           <StatNumber>{dollars(holdingsValue)}</StatNumber>
+        </Stat>
+        <Stat>
+          <StatLabel>Margin</StatLabel>
+          <StatNumber>
+            {margin === 0 ? dollars(margin) : <Margin>({dollars(margin)})</Margin>}
+          </StatNumber>
         </Stat>
       </StatGroup>
       {isLargerThanMd ? (
@@ -127,6 +131,9 @@ const Profile = ({ user, setPrefillSellHoldingId, onSellOpen }) => {
             {holdings.length
               ? "Current Positions"
               : "You don't own any stocks. Holdings will appear here."}
+              <Heading size="sm" marginBottom="1em">
+                {user.email} <Maybe value={user.name}>[{user.name}]</Maybe>
+              </Heading>
           </TableCaption>
         </Table>
       ) : (
@@ -154,9 +161,12 @@ const Profile = ({ user, setPrefillSellHoldingId, onSellOpen }) => {
             ))}
           </Tbody>
           <TableCaption>
-            {holdings.length
+          {holdings.length
               ? "Current Positions"
               : "You don't own any stocks. Holdings will appear here."}
+              <Heading size="sm" marginBottom="1em">
+                {user.email} <Maybe value={user.name}>[{user.name}]</Maybe>
+              </Heading>
           </TableCaption>
         </Table>
       )}

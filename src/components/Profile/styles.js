@@ -14,3 +14,7 @@ export const Loss = styled.span`
   color: var(--chakra-colors-red-600);
   font-size: 14px;
 `;
+
+export const Margin = styled.span`
+  color: var(--chakra-colors-red-600);
+`

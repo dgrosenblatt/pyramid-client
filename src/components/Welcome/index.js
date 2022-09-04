@@ -34,7 +34,7 @@ const Welcome = ({ isSignedIn, onSignUpOpen }) => {
           <Box>How it works:</Box>
           <UnorderedList spacing={2} marginBottom="1em">
             <ListItem>
-              Start with $10,000 of fake money to buy and sell stocks
+              Start with $10,000 of fake money to buy and sell stocks. Borrow on margin, if you dare
             </ListItem>
             <ListItem>
               Prices automatically change to reflect a team's win/loss
@@ -43,7 +43,7 @@ const Welcome = ({ isSignedIn, onSignUpOpen }) => {
             <ListItem>
               Wins pay shareholders $100 + Margin of Victory per share
             </ListItem>
-            <ListItem>Trading locks for teams with a game in progress</ListItem>
+            <ListItem>Trading locks for games in progress</ListItem>
             <ListItem>
               The money is just made up and the points don't matter.
             </ListItem>
