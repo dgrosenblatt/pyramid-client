@@ -12,12 +12,20 @@ import {
   useMediaQuery,
 } from "@chakra-ui/react";
 import Profile from "../../components/Profile";
-import { MEDIUM_SCREEN } from "../../utils/constants";
+import { MEDIUM_SCREEN, PAGES } from "../../utils/constants";
 import { dollars, transactionDate } from "../../utils";
 import * as Api from "../../api";
 import Maybe from "../../components/_shared/Maybe";
 
-const Portfolio = ({ onSellOpen, setPrefillSellHoldingId, user }) => {
+const Portfolio = ({
+  onSellOpen,
+  setActivePage,
+  setPrefillSellHoldingId,
+  user,
+}) => {
+  useEffect(() => {
+    setActivePage(PAGES.PORTFOLIO);
+  }, [setActivePage]);
   const [isLargerThanMd] = useMediaQuery(MEDIUM_SCREEN);
 
   const [balanceTransactions, setBalanceTransactions] = useState([]);

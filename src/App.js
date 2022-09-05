@@ -31,6 +31,7 @@ import "./App.css";
 
 function App() {
   const [isLargerThanMd] = useMediaQuery("(min-width: 60em)");
+  const [activePage, setActivePage] = useState(null);
 
   const [teams, setTeams] = useState([]);
   const fetchTeams = () => {
@@ -109,6 +110,7 @@ function App() {
                   onLogInOpen={onLogInOpen}
                   onBorrowOpen={onBorrowOpen}
                   onRepayOpen={onRepayOpen}
+                  activePage={activePage}
                 />
               </Box>
             ) : (
@@ -122,6 +124,7 @@ function App() {
                   onLogInOpen={onLogInOpen}
                   onBorrowOpen={onBorrowOpen}
                   onRepayOpen={onRepayOpen}
+                  activePage={activePage}
                 />
               </MobileMenuDrawer>
             )}
@@ -142,6 +145,7 @@ function App() {
                       user={user}
                       setPrefillSellHoldingId={setPrefillSellHoldingId}
                       onSellOpen={onSellOpen}
+                      setActivePage={setActivePage}
                     />
                   }
                 />
@@ -165,6 +169,7 @@ function App() {
                       setPrefillSellHoldingId={setPrefillSellHoldingId}
                       onBuyOpen={onBuyOpen}
                       onSellOpen={onSellOpen}
+                      setActivePage={setActivePage}
                     />
                   }
                 />

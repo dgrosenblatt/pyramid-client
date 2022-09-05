@@ -20,6 +20,7 @@ import {
   NavBox,
 } from "./styles";
 import Logo from "../_design_system/Logo";
+import { PAGES } from "../../utils/constants";
 
 const Nav = ({
   user,
@@ -30,6 +31,7 @@ const Nav = ({
   onLogInOpen,
   onBorrowOpen,
   onRepayOpen,
+  activePage,
 }) => {
   const toast = useToast();
 
@@ -44,13 +46,16 @@ const Nav = ({
     });
   };
 
+  const isDashboardPageActive = activePage === PAGES.DASHBOARD;
+  const isPortfolioPageActive = activePage === PAGES.PORTFOLIO;
+
   return (
     <NavBox>
       <NavHeading size="md" marginTop={["2", "2", "2", "0"]}>
         <Logo />
       </NavHeading>
       <Link to="/">
-        <LinkBody>
+        <LinkBody active={isDashboardPageActive}>
           <FaHome />
           <LinkBodyText>Dashboard</LinkBodyText>
         </LinkBody>
@@ -58,7 +63,7 @@ const Nav = ({
       {user ? (
         <>
           <Link to="/portfolio">
-            <LinkBody>
+            <LinkBody active={isPortfolioPageActive}>
               <BiLineChart />
               <LinkBodyText>Portfolio</LinkBodyText>
             </LinkBody>

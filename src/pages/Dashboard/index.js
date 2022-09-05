@@ -1,9 +1,11 @@
+import { useEffect } from "react";
 import Standings from "../../components/Standings";
 import Profile from "../../components/Profile";
 import RecentGameResults from "../../components/RecentGameResults";
 import TeamsTable from "../../components/TeamsTable";
 import Welcome from "../../components/Welcome";
 import Maybe from "../../components/_shared/Maybe";
+import { PAGES } from "../../utils/constants";
 
 const Dashboard = ({
   onSignUpOpen,
@@ -14,7 +16,12 @@ const Dashboard = ({
   setPrefillSellHoldingId,
   onBuyOpen,
   onSellOpen,
+  setActivePage,
 }) => {
+  useEffect(() => {
+    setActivePage(PAGES.DASHBOARD);
+  }, [setActivePage]);
+
   const isSignedIn = Boolean(user);
   return (
     <>

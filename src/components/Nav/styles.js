@@ -3,7 +3,8 @@ import { Button, Flex, Heading, Text } from "@chakra-ui/react";
 
 export const LinkBody = styled(Flex)`
   align-items: center;
-  color: white;
+  color: ${(props) =>
+    props.active ? "var(--chakra-colors-green-200)" : "white"};
   font-weight: 500;
   padding: 6px 0;
 `;
