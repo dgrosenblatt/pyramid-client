@@ -116,6 +116,19 @@ export const addUserMarginLoan = (amount) => {
   );
 };
 
+export const payUserMarginLoan = (amount) => {
+  return axios.patch(
+    `${baseUrl}/current_user/margin_repayment`,
+    JSON.stringify({ amount }),
+    {
+      headers: {
+        Authorization: getToken(),
+        "Content-Type": "application/json",
+      }
+    },
+  );
+};
+
 export const createSession = ({ email, password }) => {
   return axios.post(
     `${baseUrl}/login`,

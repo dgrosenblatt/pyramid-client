@@ -20,6 +20,7 @@ import PasswordForm from "./components/PasswordForm";
 import SessionForm from "./components/SessionForm";
 import BuyForm from "./components/BuyForm";
 import BorrowForm from "./components/BorrowForm";
+import RepaymentForm from "./components/RepaymentForm";
 import MobileMenuDrawer from "./components/MobileMenuDrawer";
 import Nav from "./components/Nav";
 import SellForm from "./components/SellForm";
@@ -250,14 +251,11 @@ function App() {
               <DrawerCloseButton />
               <DrawerHeader>Repay Margin</DrawerHeader>
               <DrawerBody>
-                {/* <BuyForm
+                <RepaymentForm
                   user={user}
-                  teams={teams}
                   fetchUser={fetchUser}
-                  onBuyClose={onBuyClose}
-                  prefillBuyTeamId={prefillBuyTeamId}
-                  setPrefillBuyTeamId={setPrefillBuyTeamId}
-                /> */}
+                  onRepayClose={onRepayClose}
+                />
               </DrawerBody>
             </DrawerContent>
           </Drawer>
