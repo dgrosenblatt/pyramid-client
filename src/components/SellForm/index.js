@@ -43,7 +43,16 @@ const SellForm = ({
   const toast = useToast();
 
   if (!holdings.length) {
-    return <Heading>No Holdings To Sell</Heading>;
+    return (
+      <Box
+        backgroundColor="yellow.100"
+        borderRadius="lg"
+        marginTop="2"
+        padding="2"
+      >
+        <Text>You don't currently have any holdings to sell.</Text>
+      </Box>
+    );
   }
 
   const onClickSell = () => {
