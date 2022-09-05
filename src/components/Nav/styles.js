@@ -8,6 +8,22 @@ export const LinkBody = styled(Flex)`
   padding: 6px 0;
 `;
 
+export const LinkSectionHeader = styled(Flex)`
+  align-items: center;
+  color: white;
+  font-weight: 600;
+  padding: 6px 0 0;
+`;
+
+export const SectionLink = styled(Flex)`
+  align-items: center;
+  color: white;
+  font-weight: 500;
+  left: 12px;
+  padding: 0;
+  position: relative;
+`;
+
 export const LinkBodyText = styled(Text)`
   padding-left: 8px;
 `;

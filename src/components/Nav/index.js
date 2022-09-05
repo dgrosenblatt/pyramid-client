@@ -9,6 +9,8 @@ import { BiLineChart, BiCreditCard } from "react-icons/bi";
 import {
   LinkBody,
   LinkBodyText,
+  LinkSectionHeader,
+  SectionLink,
   NavHeading,
   NavButton,
   NavBox,
@@ -57,29 +59,31 @@ const Nav = ({
               <LinkBodyText>Portfolio</LinkBodyText>
             </LinkBody>
           </Link>
+          <LinkSectionHeader>Trading</LinkSectionHeader>
           <NavButton onClick={onBuyOpen}>
-            <LinkBody>
+            <SectionLink>
               <FaCashRegister />
               <LinkBodyText>Buy</LinkBodyText>
-            </LinkBody>
+            </SectionLink>
           </NavButton>
           <NavButton onClick={onSellOpen}>
-            <LinkBody>
+            <SectionLink>
               <GiReceiveMoney />
               <LinkBodyText>Sell</LinkBodyText>
-            </LinkBody>
+            </SectionLink>
           </NavButton>
+          <LinkSectionHeader>Margin</LinkSectionHeader>
           <NavButton onClick={onBorrowOpen}>
-            <LinkBody>
+            <SectionLink>
               <BiCreditCard />
-              <LinkBodyText>Margin</LinkBodyText>
-            </LinkBody>
+              <LinkBodyText>Borrow</LinkBodyText>
+            </SectionLink>
           </NavButton>
           <NavButton onClick={onRepayOpen}>
-            <LinkBody>
+            <SectionLink>
               <AiOutlineBank />
-              <LinkBodyText>Repayment</LinkBodyText>
-            </LinkBody>
+              <LinkBodyText>Repay</LinkBodyText>
+            </SectionLink>
           </NavButton>
           <NavButton onClick={onSignOut}>
             <LinkBody>
