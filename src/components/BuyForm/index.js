@@ -85,67 +85,77 @@ const BuyForm = ({
 
   const buttonText = selectedTeam.is_locked
     ? `${selectedTeam.abbreviation} is currently locked`
-    : `Buy ${quantity} ${shareText} of ${selectedTeam.abbreviation} for ${dollars(
-        quantity * selectedTeam.price
-      )}`;
+    : `Buy ${quantity} ${shareText} of ${
+        selectedTeam.abbreviation
+      } for ${dollars(quantity * selectedTeam.price)}`;
 
   const buttonColor = selectedTeam.is_locked ? "gray" : "green";
 
   return (
-    <Box borderWidth="1px" borderRadius="lg" marginTop="2" padding="2">
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-        }}
-      >
-        <Box>
-          <Select value={teamOption} onChange={onTeamOptionChange}>
-            {teams.map((team) => (
-              <option key={team.id} value={team.id}>
-                {team.abbreviation}
-              </option>
-            ))}
-          </Select>
-          <Text position="relative" top="16px" textAlign="center">
-            Current price: {dollars(selectedTeam.price)}
-          </Text>
-          <Box
-            borderWidth="1px"
-            borderRadius="lg"
-            marginTop="8"
-            marginBottom="8"
-            padding="8"
-          >
-            <Slider
-              value={quantity}
-              defaultValue={1}
-              onChange={(val) => setQuantity(val)}
-              min={1}
-              max={maxShares}
+    <>
+      <Box borderWidth="1px" borderRadius="lg" marginTop="2" padding="2">
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+          }}
+        >
+          <Box>
+            <Select value={teamOption} onChange={onTeamOptionChange}>
+              {teams.map((team) => (
+                <option key={team.id} value={team.id}>
+                  {team.abbreviation}
+                </option>
+              ))}
+            </Select>
+            <Text position="relative" top="16px" textAlign="center">
+              Current price: {dollars(selectedTeam.price)}
+            </Text>
+            <Box
+              borderWidth="1px"
+              borderRadius="lg"
+              marginTop="8"
+              marginBottom="8"
+              padding="8"
             >
-              <SliderMark
+              <Slider
                 value={quantity}
-                textAlign="center"
-                bg="blue.500"
-                color="white"
-                mt="-10"
-                ml="-5"
-                w="12"
+                defaultValue={1}
+                onChange={(val) => setQuantity(val)}
+                min={1}
+                max={maxShares}
               >
-                {quantity}
-              </SliderMark>
-              <SliderTrack>
-                <SliderFilledTrack />
-              </SliderTrack>
-              <SliderThumb />
-            </Slider>
+                <SliderMark
+                  value={quantity}
+                  textAlign="center"
+                  bg="blue.500"
+                  color="white"
+                  mt="-10"
+                  ml="-5"
+                  w="12"
+                >
+                  {quantity}
+                </SliderMark>
+                <SliderTrack>
+                  <SliderFilledTrack />
+                </SliderTrack>
+                <SliderThumb />
+              </Slider>
+            </Box>
+            <FormButton colorScheme={buttonColor} onClick={onClickBuy}>
+              {buttonText}
+            </FormButton>
           </Box>
-          <FormButton colorScheme={buttonColor} onClick={onClickBuy}>
-            {buttonText}
-          </FormButton>
-        </Box>
-      </form>
-    </Box>
+        </form>
+      </Box>
+      <Box
+        backgroundColor="yellow.100"
+        borderRadius="lg"
+        marginTop="2"
+        padding="2"
+      >
+        <Text>Your current balance is {dollars(balance)}</Text>
+      </Box>
+    </>
   );
 };
 

@@ -66,9 +66,12 @@ const Profile = ({ user, setPrefillSellHoldingId, onSellOpen }) => {
       marginBottom="1rem"
       padding="2"
     >
-      <Heading size="md" marginBottom="0.5em">{title}</Heading>
+      <Heading size="md" marginBottom="0.5em">
+        {title}
+      </Heading>
       <Text marginBottom="1em">
-        <InlineLabel>Global ranking:</InlineLabel> {rankingIsLoading ? <Spinner /> : ranking}
+        <InlineLabel>Global ranking:</InlineLabel>{" "}
+        {rankingIsLoading ? <Spinner /> : ranking}
       </Text>
       <StatGroup
         flexDirection={["column", "column", "column", "row"]}
@@ -90,7 +93,11 @@ const Profile = ({ user, setPrefillSellHoldingId, onSellOpen }) => {
         <Stat>
           <StatLabel>Margin</StatLabel>
           <StatNumber>
-            {margin === 0 ? dollars(margin) : <Margin>({dollars(margin)})</Margin>}
+            {margin === 0 ? (
+              dollars(margin)
+            ) : (
+              <Margin>({dollars(margin)})</Margin>
+            )}
           </StatNumber>
         </Stat>
       </StatGroup>
@@ -131,9 +138,9 @@ const Profile = ({ user, setPrefillSellHoldingId, onSellOpen }) => {
             {holdings.length
               ? "Current Positions"
               : "You don't own any stocks. Holdings will appear here."}
-              <Heading size="sm" marginBottom="1em">
-                {user.email} <Maybe value={user.name}>[{user.name}]</Maybe>
-              </Heading>
+            <Heading size="sm" marginBottom="1em">
+              {user.email} <Maybe value={user.name}>[{user.name}]</Maybe>
+            </Heading>
           </TableCaption>
         </Table>
       ) : (
@@ -161,12 +168,12 @@ const Profile = ({ user, setPrefillSellHoldingId, onSellOpen }) => {
             ))}
           </Tbody>
           <TableCaption>
-          {holdings.length
+            {holdings.length
               ? "Current Positions"
               : "You don't own any stocks. Holdings will appear here."}
-              <Heading size="sm" marginBottom="1em">
-                {user.email} <Maybe value={user.name}>[{user.name}]</Maybe>
-              </Heading>
+            <Heading size="sm" marginBottom="1em">
+              {user.email} <Maybe value={user.name}>[{user.name}]</Maybe>
+            </Heading>
           </TableCaption>
         </Table>
       )}

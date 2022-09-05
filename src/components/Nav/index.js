@@ -3,7 +3,11 @@ import { useToast } from "@chakra-ui/react";
 import { BsFillGearFill } from "react-icons/bs";
 import { FaCashRegister, FaHome } from "react-icons/fa";
 import { GiReceiveMoney } from "react-icons/gi";
-import { AiOutlinePlusSquare, AiOutlineLogin, AiOutlineBank } from "react-icons/ai";
+import {
+  AiOutlinePlusSquare,
+  AiOutlineLogin,
+  AiOutlineBank,
+} from "react-icons/ai";
 import { VscSignOut } from "react-icons/vsc";
 import { BiLineChart, BiCreditCard } from "react-icons/bi";
 import {

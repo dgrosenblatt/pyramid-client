@@ -10,19 +10,15 @@ import {
   useToast,
   Button,
 } from "@chakra-ui/react";
-import { FaArrowLeft, FaArrowRight } from "react-icons/fa"
+import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import * as Api from "../../api";
 import FormButton from "../_design_system/FormButton";
-import InlineLabel from "../_design_system/InlineLabel"
+import InlineLabel from "../_design_system/InlineLabel";
 import { dollars } from "../../utils";
 
-const RepaymentForm = ({
-  user,
-  fetchUser,
-  onRepayClose,
-}) => {
-  const { margin, balance } = user
-  const max = Math.min(margin, balance)
+const RepaymentForm = ({ user, fetchUser, onRepayClose }) => {
+  const { margin, balance } = user;
+  const max = Math.min(margin, balance);
 
   const [amount, setAmount] = useState(100);
   const toast = useToast();
@@ -53,14 +49,15 @@ const RepaymentForm = ({
   };
 
   const increaseAmountStep = () => {
-    setAmount((amount) => Math.min(amount + 1, balance))
-  }
+    setAmount((amount) => Math.min(amount + 1, balance));
+  };
 
   const decreaseAmountStep = () => {
-    setAmount((amount) => Math.max(amount - 1, 0))
-  }
+    setAmount((amount) => Math.max(amount - 1, 0));
+  };
 
-  const buttonText = margin === 0 ? 'No margin balance' : `Pay ${dollars(amount)}`
+  const buttonText =
+    margin === 0 ? "No margin balance" : `Pay ${dollars(amount)}`;
   const isButtonDisabled = margin === 0 || balance === 0;
 
   return (
@@ -108,26 +105,39 @@ const RepaymentForm = ({
                 </SliderTrack>
                 <SliderThumb />
               </Slider>
-              <Box marginTop="1em" display="flex" justifyContent="space-between">
+              <Box
+                marginTop="1em"
+                display="flex"
+                justifyContent="space-between"
+              >
                 <Button>
-                  <FaArrowLeft onClick={decreaseAmountStep}/>
+                  <FaArrowLeft onClick={decreaseAmountStep} />
                 </Button>
                 <Button>
-                  <FaArrowRight onClick={increaseAmountStep}/>
+                  <FaArrowRight onClick={increaseAmountStep} />
                 </Button>
               </Box>
             </Box>
-            <FormButton disabled={isButtonDisabled} colorScheme="green" onClick={onClickRepay}>
+            <FormButton
+              disabled={isButtonDisabled}
+              colorScheme="green"
+              onClick={onClickRepay}
+            >
               {buttonText}
             </FormButton>
           </Box>
         </form>
       </Box>
       {amount > 0 && margin > 0 && (
-        <Box backgroundColor="yellow.100" borderRadius="lg" marginTop="2" padding="2">
-            <Text>
-              This will reduce your margin balance to {dollars(margin - amount)}.
-            </Text>
+        <Box
+          backgroundColor="yellow.100"
+          borderRadius="lg"
+          marginTop="2"
+          padding="2"
+        >
+          <Text>
+            This will reduce your margin balance to {dollars(margin - amount)}.
+          </Text>
         </Box>
       )}
     </>

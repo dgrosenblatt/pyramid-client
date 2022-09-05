@@ -17,4 +17,4 @@ export const Loss = styled.span`
 
 export const Margin = styled.span`
   color: var(--chakra-colors-red-600);
-`
+`;

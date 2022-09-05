@@ -111,8 +111,8 @@ export const addUserMarginLoan = (amount) => {
       headers: {
         Authorization: getToken(),
         "Content-Type": "application/json",
-      }
-    },
+      },
+    }
   );
 };
 
@@ -124,8 +124,8 @@ export const payUserMarginLoan = (amount) => {
       headers: {
         Authorization: getToken(),
         "Content-Type": "application/json",
-      }
-    },
+      },
+    }
   );
 };
 

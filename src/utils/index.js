@@ -17,7 +17,7 @@ export const publicName = ({ id, name }) => {
 };
 
 export const gameTime = (dateISO8601) => {
-  if (!dateISO8601) return ''
+  if (!dateISO8601) return "";
 
   const dt = new Date(dateISO8601);
   return format(dt, "EEE p");

@@ -10,21 +10,17 @@ import {
   useToast,
   Button,
 } from "@chakra-ui/react";
-import { FaArrowLeft, FaArrowRight } from "react-icons/fa"
+import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import * as Api from "../../api";
 import FormButton from "../_design_system/FormButton";
-import InlineLabel from "../_design_system/InlineLabel"
+import InlineLabel from "../_design_system/InlineLabel";
 import { dollars } from "../../utils";
 
-const BorrowForm = ({
-  user,
-  fetchUser,
-  onBorrowClose,
-}) => {
-  const { total_value: totalValue, margin } = user
-  const step = 100
+const BorrowForm = ({ user, fetchUser, onBorrowClose }) => {
+  const { total_value: totalValue, margin } = user;
+  const step = 100;
   const maxAmount = totalValue - margin;
-  const availableAmount = Math.max(0, maxAmount)
+  const availableAmount = Math.max(0, maxAmount);
 
   const [amount, setAmount] = useState(100);
   const toast = useToast();
@@ -55,14 +51,14 @@ const BorrowForm = ({
   };
 
   const increaseAmountStep = () => {
-    setAmount((amount) => Math.min(amount + 100, maxAmount))
-  }
+    setAmount((amount) => Math.min(amount + 100, maxAmount));
+  };
 
   const decreaseAmountStep = () => {
-    setAmount((amount) => Math.max(amount - 100, 100))
-  }
+    setAmount((amount) => Math.max(amount - 100, 100));
+  };
 
-  const buttonText = `Borrow ${dollars(amount)}`
+  const buttonText = `Borrow ${dollars(amount)}`;
 
   return (
     <>
@@ -76,7 +72,8 @@ const BorrowForm = ({
             <Text position="relative" top="12px">
               <InlineLabel>Margin balance:</InlineLabel> {dollars(margin)}
               <br />
-              <InlineLabel>Available to borrow:</InlineLabel> {dollars(availableAmount)}
+              <InlineLabel>Available to borrow:</InlineLabel>{" "}
+              {dollars(availableAmount)}
             </Text>
             <Box
               borderWidth="1px"
@@ -109,25 +106,39 @@ const BorrowForm = ({
                 </SliderTrack>
                 <SliderThumb />
               </Slider>
-              <Box marginTop="1em" display="flex" justifyContent="space-between">
+              <Box
+                marginTop="1em"
+                display="flex"
+                justifyContent="space-between"
+              >
                 <Button>
-                  <FaArrowLeft onClick={decreaseAmountStep}/>
+                  <FaArrowLeft onClick={decreaseAmountStep} />
                 </Button>
                 <Button>
-                  <FaArrowRight onClick={increaseAmountStep}/>
+                  <FaArrowRight onClick={increaseAmountStep} />
                 </Button>
               </Box>
             </Box>
-            <FormButton disabled={availableAmount === 0} colorScheme="green" onClick={onClickBorrow}>
+            <FormButton
+              disabled={availableAmount === 0}
+              colorScheme="green"
+              onClick={onClickBorrow}
+            >
               {buttonText}
             </FormButton>
           </Box>
         </form>
       </Box>
-      <Box backgroundColor="yellow.100" borderRadius="lg" marginTop="2" padding="2">
+      <Box
+        backgroundColor="yellow.100"
+        borderRadius="lg"
+        marginTop="2"
+        padding="2"
+      >
         <Text>
-          You may borrow up to the total value of your portfolio ({dollars(totalValue)}).
-          A 1% daily interest charge will be applied immediately and each following day to margin balances.
+          You may borrow up to the total value of your portfolio (
+          {dollars(totalValue)}). A 1% daily interest charge will be applied
+          immediately and each following day to margin balances.
         </Text>
       </Box>
     </>

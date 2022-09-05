@@ -124,7 +124,10 @@ const TeamRow = ({
             <Gain>{percent(potentialWeeklyGain)}</Gain> |{" "}
             <Loss>{percent(potentialWeeklyLoss)}</Loss>
           </Td>
-          <Td>{wins}-{losses}{Boolean(ties) && `-${ties}`}</Td>
+          <Td>
+            {wins}-{losses}
+            {Boolean(ties) && `-${ties}`}
+          </Td>
           {isAdmin && (
             <Td>
               <ButtonGroup size="sm" isAttached variant="outline">
