@@ -11,6 +11,7 @@ import {
 } from "@chakra-ui/react";
 import * as Api from "../../api";
 import { dollars, publicName } from "../../utils";
+import Loadable from "../_shared/Loadable";
 
 const getRowFontWeight = (place) => {
   if (place > 5) return "regular";
@@ -24,10 +25,16 @@ const getRowBackgroundColor = ({ user, currentUser }) => {
 
 const Standings = ({ currentUser }) => {
   const [standings, setStandings] = useState([]);
+  const [areStandingsLoading, setAreStandingsLoading] = useState(false);
   useEffect(() => {
-    Api.getStandings().then(({ data }) => {
-      setStandings(data);
-    });
+    setAreStandingsLoading(true);
+    Api.getStandings()
+      .then(({ data }) => {
+        setStandings(data);
+      })
+      .finally(() => {
+        setAreStandingsLoading(false);
+      });
   }, []);
 
   return (
@@ -48,19 +55,21 @@ const Standings = ({ currentUser }) => {
             <Th>Name</Th>
           </Tr>
         </Thead>
-        <Tbody>
-          {standings.map((user, index) => (
-            <Tr
-              key={user.id}
-              fontWeight={getRowFontWeight(index + 1)}
-              backgroundColor={getRowBackgroundColor({ user, currentUser })}
-            >
-              <Td>{index + 1}</Td>
-              <Td>{dollars(user.total_value)}</Td>
-              <Td>{publicName(user)}</Td>
-            </Tr>
-          ))}
-        </Tbody>
+        <Loadable spinnerSize="lg" isLoading={areStandingsLoading}>
+          <Tbody>
+            {standings.map((user, index) => (
+              <Tr
+                key={user.id}
+                fontWeight={getRowFontWeight(index + 1)}
+                backgroundColor={getRowBackgroundColor({ user, currentUser })}
+              >
+                <Td>{index + 1}</Td>
+                <Td>{dollars(user.total_value)}</Td>
+                <Td>{publicName(user)}</Td>
+              </Tr>
+            ))}
+          </Tbody>
+        </Loadable>
       </Table>
     </Box>
   );

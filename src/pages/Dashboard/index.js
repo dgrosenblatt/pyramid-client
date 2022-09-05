@@ -17,6 +17,8 @@ const Dashboard = ({
   onBuyOpen,
   onSellOpen,
   setActivePage,
+  userIsLoading,
+  teamsAreLoading,
 }) => {
   useEffect(() => {
     setActivePage(PAGES.DASHBOARD);
@@ -25,12 +27,17 @@ const Dashboard = ({
   const isSignedIn = Boolean(user);
   return (
     <>
-      <Welcome isSignedIn={isSignedIn} onSignUpOpen={onSignUpOpen} />
+      <Welcome
+        userIsLoading={userIsLoading}
+        isSignedIn={isSignedIn}
+        onSignUpOpen={onSignUpOpen}
+      />
       <Standings currentUser={user} />
       <RecentGameResults />
       <Maybe value={user}>
         <Profile
           user={user}
+          userIsLoading={userIsLoading}
           setPrefillSellHoldingId={setPrefillSellHoldingId}
           onSellOpen={onSellOpen}
         />
@@ -39,6 +46,7 @@ const Dashboard = ({
         onBuyOpen={onBuyOpen}
         teams={teams}
         fetchTeams={fetchTeams}
+        teamsAreLoading={teamsAreLoading}
         setPrefillBuyTeamId={setPrefillBuyTeamId}
       />
     </>

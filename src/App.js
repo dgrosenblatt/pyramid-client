@@ -34,21 +34,32 @@ function App() {
   const [activePage, setActivePage] = useState(null);
 
   const [teams, setTeams] = useState([]);
+  const [teamsAreLoading, setTeamsAreLoading] = useState([]);
   const fetchTeams = () => {
-    Api.getTeams().then(({ data }) => {
-      setTeams(data);
-    });
+    setTeamsAreLoading(true);
+    Api.getTeams()
+      .then(({ data }) => {
+        setTeams(data);
+      })
+      .finally(() => {
+        setTeamsAreLoading(false);
+      });
   };
   useEffect(fetchTeams, []);
 
   const [user, setUser] = useState(null);
+  const [userIsLoading, setUserIsLoading] = useState(false);
   const fetchUser = () => {
+    setUserIsLoading(true);
     Api.getUser()
       .then(({ data }) => {
         setUser(data);
       })
       .catch(() => {
         return;
+      })
+      .finally(() => {
+        setUserIsLoading(false);
       });
   };
   useEffect(fetchUser, []);
@@ -86,10 +97,6 @@ function App() {
     onOpen: onLogInOpen,
     onClose: onLogInClose,
   } = useDisclosure();
-
-  if (!teams) {
-    return <></>;
-  }
 
   return (
     <ChakraProvider>
@@ -149,7 +156,7 @@ function App() {
                     />
                   }
                 />
-                {user?.admin && (
+                {user?.admin && Boolean(teams.length) && (
                   <Route
                     path="/admin"
                     element={
@@ -165,11 +172,13 @@ function App() {
                       user={user}
                       fetchTeams={fetchTeams}
                       teams={teams}
+                      teamsAreLoading={teamsAreLoading}
                       setPrefillBuyTeamId={setPrefillBuyTeamId}
                       setPrefillSellHoldingId={setPrefillSellHoldingId}
                       onBuyOpen={onBuyOpen}
                       onSellOpen={onSellOpen}
                       setActivePage={setActivePage}
+                      userIsLoading={userIsLoading}
                     />
                   }
                 />
@@ -194,6 +203,7 @@ function App() {
                 <BuyForm
                   user={user}
                   teams={teams}
+                  teamsAreLoading={teamsAreLoading}
                   fetchUser={fetchUser}
                   onBuyClose={onBuyClose}
                   prefillBuyTeamId={prefillBuyTeamId}

@@ -15,7 +15,6 @@ import {
   Tr,
   Th,
   TableCaption,
-  Spinner,
   useMediaQuery,
 } from "@chakra-ui/react";
 import { MEDIUM_SCREEN } from "../../utils/constants";
@@ -24,6 +23,7 @@ import * as Api from "../../api";
 import Maybe from "../_shared/Maybe";
 import { Gain, Loss, Margin, PlainButton } from "./styles";
 import InlineLabel from "../_design_system/InlineLabel";
+import Loadable from "../_shared/Loadable";
 
 const Profile = ({ user, setPrefillSellHoldingId, onSellOpen }) => {
   const [isLargerThanMd] = useMediaQuery(MEDIUM_SCREEN);
@@ -71,7 +71,9 @@ const Profile = ({ user, setPrefillSellHoldingId, onSellOpen }) => {
       </Heading>
       <Text marginBottom="1em">
         <InlineLabel>Global ranking:</InlineLabel>{" "}
-        {rankingIsLoading ? <Spinner /> : ranking}
+        <Loadable isLoading={rankingIsLoading} spinnerSize="sm">
+          {ranking}
+        </Loadable>
       </Text>
       <StatGroup
         flexDirection={["column", "column", "column", "row"]}

@@ -59,7 +59,10 @@ export const addTie = (id) => {
   });
 };
 
-export const getUser = () => {
+export const getUser = async () => {
+  const token = getToken();
+  if (!token) return;
+
   return axios.get(`${baseUrl}/current_user`, {
     headers: { Authorization: getToken() },
   });

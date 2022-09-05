@@ -13,6 +13,7 @@ import {
 import * as Api from "../../api";
 import { FormButton } from "./styles";
 import { dollars } from "../../utils";
+import Loadable from "../_shared/Loadable";
 
 const BuyForm = ({
   user,
@@ -21,6 +22,7 @@ const BuyForm = ({
   onBuyClose,
   prefillBuyTeamId,
   setPrefillBuyTeamId,
+  teamsAreLoading,
 }) => {
   const [quantity, setQuantity] = useState(1);
 
@@ -42,9 +44,11 @@ const BuyForm = ({
 
   const toast = useToast();
 
+  const [isLoading, setIsLoading] = useState(false);
   const onClickBuy = () => {
     if (selectedTeam.is_locked) return;
 
+    setIsLoading(true);
     Api.createHolding({ quantity, teamId: teamOption })
       .then(({ data }) => {
         const { team } = data;
@@ -76,6 +80,9 @@ const BuyForm = ({
           duration: 9000,
           isClosable: true,
         });
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
   };
 
@@ -92,7 +99,7 @@ const BuyForm = ({
   const buttonColor = selectedTeam.is_locked ? "gray" : "green";
 
   return (
-    <>
+    <Loadable isLoading={teamsAreLoading}>
       <Box borderWidth="1px" borderRadius="lg" marginTop="2" padding="2">
         <form
           onSubmit={(e) => {
@@ -142,7 +149,7 @@ const BuyForm = ({
               </Slider>
             </Box>
             <FormButton colorScheme={buttonColor} onClick={onClickBuy}>
-              {buttonText}
+              <Loadable isLoading={isLoading}>{buttonText}</Loadable>
             </FormButton>
           </Box>
         </form>
@@ -155,7 +162,7 @@ const BuyForm = ({
       >
         <Text>Your current balance is {dollars(balance)}</Text>
       </Box>
-    </>
+    </Loadable>
   );
 };
 

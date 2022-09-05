@@ -13,8 +13,15 @@ import {
 } from "@chakra-ui/react";
 import { TiArrowUnsorted } from "react-icons/ti";
 import TeamRow from "../TeamRow";
+import Loadable from "../_shared/Loadable";
 
-const TeamsTable = ({ teams, fetchTeams, setPrefillBuyTeamId, onBuyOpen }) => {
+const TeamsTable = ({
+  teams,
+  teamsAreLoading,
+  fetchTeams,
+  setPrefillBuyTeamId,
+  onBuyOpen,
+}) => {
   const [isLargerThanMd] = useMediaQuery("(min-width: 48em)");
 
   const [statusSort, setStatusSort] = useState(false);
@@ -66,18 +73,20 @@ const TeamsTable = ({ teams, fetchTeams, setPrefillBuyTeamId, onBuyOpen }) => {
             </Tr>
           )}
         </Thead>
-        <Tbody>
-          {teams.map((team) => (
-            <TeamRow
-              key={team.id}
-              team={team}
-              fetchTeams={fetchTeams}
-              isAdmin={false}
-              setPrefillBuyTeamId={setPrefillBuyTeamId}
-              onBuyOpen={onBuyOpen}
-            />
-          ))}
-        </Tbody>
+        <Loadable isLoading={teamsAreLoading}>
+          <Tbody>
+            {teams.map((team) => (
+              <TeamRow
+                key={team.id}
+                team={team}
+                fetchTeams={fetchTeams}
+                isAdmin={false}
+                setPrefillBuyTeamId={setPrefillBuyTeamId}
+                onBuyOpen={onBuyOpen}
+              />
+            ))}
+          </Tbody>
+        </Loadable>
         <TableCaption>
           <Text>Prices are based on W%, minimum $100</Text>
           <Text>W pays $100 + Margin of Victory dividend per share</Text>

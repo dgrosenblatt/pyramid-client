@@ -15,6 +15,7 @@ import * as Api from "../../api";
 import FormButton from "../_design_system/FormButton";
 import InlineLabel from "../_design_system/InlineLabel";
 import { dollars } from "../../utils";
+import Loadable from "../_shared/Loadable";
 
 const RepaymentForm = ({ user, fetchUser, onRepayClose }) => {
   const { margin, balance } = user;
@@ -23,7 +24,9 @@ const RepaymentForm = ({ user, fetchUser, onRepayClose }) => {
   const [amount, setAmount] = useState(100);
   const toast = useToast();
 
+  const [isLoading, setIsLoading] = useState(false);
   const onClickRepay = () => {
+    setIsLoading(true);
     Api.payUserMarginLoan(amount)
       .then(() => {
         fetchUser();
@@ -45,6 +48,9 @@ const RepaymentForm = ({ user, fetchUser, onRepayClose }) => {
           duration: 9000,
           isClosable: true,
         });
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
   };
 
@@ -123,7 +129,7 @@ const RepaymentForm = ({ user, fetchUser, onRepayClose }) => {
               colorScheme="green"
               onClick={onClickRepay}
             >
-              {buttonText}
+              <Loadable isLoading={isLoading}>{buttonText}</Loadable>
             </FormButton>
           </Box>
         </form>

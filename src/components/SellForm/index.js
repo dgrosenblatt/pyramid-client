@@ -2,7 +2,6 @@ import { useMemo, useState } from "react";
 import {
   Box,
   Text,
-  Heading,
   Slider,
   SliderMark,
   Select,
@@ -14,6 +13,7 @@ import {
 import * as Api from "../../api";
 import { FormButton } from "./styles";
 import { dollars } from "../../utils";
+import Loadable from "../_shared/Loadable";
 
 const SellForm = ({
   onSellClose,
@@ -42,6 +42,8 @@ const SellForm = ({
 
   const toast = useToast();
 
+  const [isLoading, setIsLoading] = useState(false);
+
   if (!holdings.length) {
     return (
       <Box
@@ -58,6 +60,7 @@ const SellForm = ({
   const onClickSell = () => {
     if (selectedHolding.team.is_locked) return;
 
+    setIsLoading(true);
     Api.deleteHolding({ quantity, holdingId: selectedHolding.id })
       .then(({ data }) => {
         fetchUser();
@@ -82,6 +85,9 @@ const SellForm = ({
           duration: 9000,
           isClosable: true,
         });
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
   };
 
@@ -154,7 +160,7 @@ const SellForm = ({
             </Slider>
           </Box>
           <FormButton colorScheme={buttonColor} onClick={onClickSell}>
-            {buttonText}
+            <Loadable isLoading={isLoading}>{buttonText}</Loadable>
           </FormButton>
         </Box>
       </form>

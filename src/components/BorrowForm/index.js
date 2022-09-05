@@ -15,6 +15,7 @@ import * as Api from "../../api";
 import FormButton from "../_design_system/FormButton";
 import InlineLabel from "../_design_system/InlineLabel";
 import { dollars } from "../../utils";
+import Loadable from "../_shared/Loadable";
 
 const BorrowForm = ({ user, fetchUser, onBorrowClose }) => {
   const { total_value: totalValue, margin } = user;
@@ -25,7 +26,9 @@ const BorrowForm = ({ user, fetchUser, onBorrowClose }) => {
   const [amount, setAmount] = useState(100);
   const toast = useToast();
 
+  const [isLoading, setIsLoading] = useState(false);
   const onClickBorrow = () => {
+    setIsLoading(true);
     Api.addUserMarginLoan(amount)
       .then(() => {
         fetchUser();
@@ -47,6 +50,9 @@ const BorrowForm = ({ user, fetchUser, onBorrowClose }) => {
           duration: 9000,
           isClosable: true,
         });
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
   };
 
@@ -124,7 +130,7 @@ const BorrowForm = ({ user, fetchUser, onBorrowClose }) => {
               colorScheme="green"
               onClick={onClickBorrow}
             >
-              {buttonText}
+              <Loadable isLoading={isLoading}>{buttonText}</Loadable>
             </FormButton>
           </Box>
         </form>

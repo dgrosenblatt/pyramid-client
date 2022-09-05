@@ -10,7 +10,7 @@ import { MEDIUM_SCREEN } from "../../utils/constants";
 import PlainBox from "../_design_system/PlainBox";
 import { ButtonContainer } from "./styles";
 
-const Welcome = ({ isSignedIn, onSignUpOpen }) => {
+const Welcome = ({ isSignedIn, userIsLoading, onSignUpOpen }) => {
   const [isLargerThanMd] = useMediaQuery(MEDIUM_SCREEN);
   const buttonWidth = isLargerThanMd ? undefined : "100%";
 
@@ -23,7 +23,7 @@ const Welcome = ({ isSignedIn, onSignUpOpen }) => {
       marginBottom="1rem"
       padding="2"
     >
-      {isSignedIn ? (
+      {isSignedIn || userIsLoading ? (
         <Heading size={3}>Welcome back!</Heading>
       ) : (
         <>
