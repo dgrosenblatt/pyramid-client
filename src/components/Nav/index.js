@@ -52,7 +52,9 @@ const Nav = ({
   return (
     <NavBox>
       <NavHeading size="md" marginTop={["2", "2", "2", "0"]}>
-        <Logo />
+        <Link to="/">
+          <Logo />
+        </Link>
       </NavHeading>
       <Link to="/">
         <LinkBody active={isDashboardPageActive}>

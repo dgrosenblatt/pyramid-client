@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import {
   useDisclosure,
   Box,
@@ -8,6 +9,7 @@ import {
   DrawerBody,
   Flex,
 } from "@chakra-ui/react";
+
 import { GiHamburgerMenu } from "react-icons/gi";
 import Logo from "../_design_system/Logo";
 
@@ -22,7 +24,9 @@ const MobileMenuDrawer = ({ children }) => {
         alignItems="center"
         padding="0.5em"
       >
-        <Logo />
+        <Link to="/">
+          <Logo />
+        </Link>
         <GiHamburgerMenu color="whitesmoke" onClick={onOpen} />
       </Flex>
       <Drawer
