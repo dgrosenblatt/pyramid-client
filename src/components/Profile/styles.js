@@ -3,6 +3,11 @@ import styled from "styled-components";
 export const PlainButton = styled.button`
   color: blue;
   text-decoration: underline;
+
+  :disabled {
+    color: gray;
+    text-decoration: none;
+  }
 `;
 
 export const Gain = styled.span`
