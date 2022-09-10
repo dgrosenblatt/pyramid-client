@@ -128,7 +128,7 @@ const Profile = ({ user, setPrefillSellHoldingId, onSellOpen }) => {
                       onClick={() => onClickSell(holding.id)}
                       colorScheme="red"
                       size="xs"
-                      disabled={Boolean(holding.team.locked_at)}
+                      disabled={holding.team.is_locked}
                     >
                       Sell
                     </Button>
@@ -162,7 +162,7 @@ const Profile = ({ user, setPrefillSellHoldingId, onSellOpen }) => {
                     {holding.quantity} {holding.team.abbreviation} @{" "}
                     {dollars(holding.team.price)}
                     <PlainButton
-                      disabled={Boolean(holding.team.locked_at)}
+                      disabled={holding.team.is_locked}
                       onClick={() => onClickSell(holding.id)}
                     >
                       Sell
