@@ -9,6 +9,10 @@ export const getTeams = () => {
   return axios.get(`${baseUrl}/teams`);
 };
 
+export const getGlobalHoldingsDistribution = () => {
+  return axios.get(`${baseUrl}/global_holdings_distribution`);
+};
+
 export const getStandings = () => {
   return axios.get(`${baseUrl}/standings`, {
     headers: { Authorization: getToken() },

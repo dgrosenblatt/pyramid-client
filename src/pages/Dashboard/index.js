@@ -4,6 +4,7 @@ import Profile from "../../components/Profile";
 import RecentGameResults from "../../components/RecentGameResults";
 import TeamsTable from "../../components/TeamsTable";
 import Welcome from "../../components/Welcome";
+import StockDistributionChart from "../../components/StockDistributionChart";
 import Maybe from "../../components/_shared/Maybe";
 import { PAGES } from "../../utils/constants";
 
@@ -42,6 +43,7 @@ const Dashboard = ({
           onSellOpen={onSellOpen}
         />
       </Maybe>
+      <StockDistributionChart />
       <TeamsTable
         onBuyOpen={onBuyOpen}
         teams={teams}
