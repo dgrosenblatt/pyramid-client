@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import {
-  Box,
   Button,
   Heading,
   Stat,
@@ -24,6 +23,7 @@ import Maybe from "../_shared/Maybe";
 import { Gain, Loss, Margin, PlainButton } from "./styles";
 import InlineLabel from "../_design_system/InlineLabel";
 import Loadable from "../_shared/Loadable";
+import PlainBox from "../_design_system/PlainBox";
 
 const Profile = ({ user, setPrefillSellHoldingId, onSellOpen }) => {
   const [isLargerThanMd] = useMediaQuery(MEDIUM_SCREEN);
@@ -58,14 +58,7 @@ const Profile = ({ user, setPrefillSellHoldingId, onSellOpen }) => {
   const title = "Summary";
 
   return (
-    <Box
-      bgColor="white"
-      borderWidth="1px"
-      borderRadius="lg"
-      marginTop="2"
-      marginBottom="1rem"
-      padding="2"
-    >
+    <PlainBox>
       <Heading size="md" marginBottom="0.5em">
         {title}
       </Heading>
@@ -183,7 +176,7 @@ const Profile = ({ user, setPrefillSellHoldingId, onSellOpen }) => {
           </TableCaption>
         </Table>
       )}
-    </Box>
+    </PlainBox>
   );
 };
 

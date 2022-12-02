@@ -137,7 +137,7 @@ function App() {
             )}
             <Box
               w={["auto", "auto", "auto", "calc(100% - 200px)"]}
-              padding="1rem"
+              padding={["0", "0", "1rem", "1rem"]}
               bgColor="gray.50"
             >
               <Routes>

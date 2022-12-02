@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import {
-  Box,
   Heading,
   Table,
   TableCaption,
@@ -16,6 +15,7 @@ import {
 import * as Api from "../../api";
 import { dollars, percent, constants, gameTime } from "../../utils";
 import Maybe from "../_shared/Maybe";
+import PlainBox from "../_design_system/PlainBox";
 
 const getOutcomeColor = (gainLoss) => {
   if (gainLoss > 0) {
@@ -44,13 +44,7 @@ const RecentGameResults = () => {
   const scoresUpdatedAt = gameResults[0]?.created_at;
 
   return (
-    <Box
-      bgColor="white"
-      borderWidth="1px"
-      borderRadius="lg"
-      marginBottom="1rem"
-      padding="2"
-    >
+    <PlainBox>
       <Heading size="md">
         Recent Outcomes {isLoading && <Spinner size="sm" />}
       </Heading>
@@ -114,7 +108,7 @@ const RecentGameResults = () => {
           <TableCaption>No results yet today.</TableCaption>
         )}
       </Table>
-    </Box>
+    </PlainBox>
   );
 };
 

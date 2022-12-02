@@ -15,14 +15,7 @@ const Welcome = ({ isSignedIn, userIsLoading, onSignUpOpen }) => {
   const buttonWidth = isLargerThanMd ? undefined : "100%";
 
   return (
-    <PlainBox
-      bgColor="white"
-      borderWidth="1px"
-      borderRadius="lg"
-      marginTop="2"
-      marginBottom="1rem"
-      padding="2"
-    >
+    <PlainBox>
       {isSignedIn || userIsLoading ? (
         <Heading size={3}>Welcome back!</Heading>
       ) : (

@@ -1,6 +1,5 @@
 import { useState } from "react";
 import {
-  Box,
   Flex,
   Table,
   Thead,
@@ -14,6 +13,7 @@ import {
 import { TiArrowUnsorted } from "react-icons/ti";
 import TeamRow from "../TeamRow";
 import Loadable from "../_shared/Loadable";
+import PlainBox from "../_design_system/PlainBox";
 
 const TeamsTable = ({
   teams,
@@ -45,7 +45,7 @@ const TeamsTable = ({
   };
 
   return (
-    <Box bgColor="white" borderWidth="1px" borderRadius="lg" padding="2">
+    <PlainBox>
       <Table variant="striped" colorScheme="gray">
         <Thead>
           {isLargerThanMd ? (
@@ -92,7 +92,7 @@ const TeamsTable = ({
           <Text>W pays $100 + Margin of Victory dividend per share</Text>
         </TableCaption>
       </Table>
-    </Box>
+    </PlainBox>
   );
 };
 

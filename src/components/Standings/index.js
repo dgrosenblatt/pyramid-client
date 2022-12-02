@@ -1,17 +1,9 @@
 import { useEffect, useState } from "react";
-import {
-  Box,
-  Heading,
-  Table,
-  Td,
-  Thead,
-  Tbody,
-  Tr,
-  Th,
-} from "@chakra-ui/react";
+import { Heading, Table, Td, Thead, Tbody, Tr, Th } from "@chakra-ui/react";
 import * as Api from "../../api";
 import { dollars, publicName } from "../../utils";
 import Loadable from "../_shared/Loadable";
+import PlainBox from "../_design_system/PlainBox";
 
 const getRowFontWeight = (place) => {
   if (place > 5) return "regular";
@@ -38,13 +30,7 @@ const Standings = ({ currentUser }) => {
   }, []);
 
   return (
-    <Box
-      bgColor="white"
-      borderWidth="1px"
-      borderRadius="lg"
-      marginBottom="1rem"
-      padding="2"
-    >
+    <PlainBox>
       <Heading size="md">2022 Standings</Heading>
       <Heading size="sm">Global</Heading>
       <Table size="sm">
@@ -71,7 +57,7 @@ const Standings = ({ currentUser }) => {
           </Tbody>
         </Loadable>
       </Table>
-    </Box>
+    </PlainBox>
   );
 };
 
